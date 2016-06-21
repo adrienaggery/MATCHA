@@ -1,1 +1,8 @@
 * { box-sizing: border-box; }
+
+/* Usefull classes */
+.center { text-align: center; }
+
+
+/* Header */
+.nav > li { display: inline-block; }

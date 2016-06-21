@@ -12,7 +12,7 @@ var dir = __dirname;
 
 
 app.get('/', function(req, res) {
-	res.setHeader('Content-Type', 'text/html');
+	// res.setHeader('Content-Type', 'text/html');
 	res.render('index', {dir: dir});
 });
 
