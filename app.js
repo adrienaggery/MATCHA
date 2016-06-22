@@ -6,14 +6,16 @@ var express = require('express'),
 	mysql 	= require('mysql'),
 	fs 		= require('fs');
 
+require('./routes')(app);
+
 app.set('view engine', 'ejs');
 app.set('views', __dirname+"/views");
 app.use("/public", express.static(__dirname + "/public"));
 
 
-app.get('/', function(req, res) {
-	// res.setHeader('Content-Type', 'text/html');
-	res.render('pages/index');
-});
+// app.get('/', function(req, res) {
+// 	// res.setHeader('Content-Type', 'text/html');
+// 	res.render('pages/index');
+// });
 
 server.listen(8080);

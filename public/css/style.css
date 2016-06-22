@@ -1,0 +1,13 @@
+body { display: flex; flex-direction: column; min-height: 100vh; }
+.site-content { flex: 1; width: 100%; }
+#header a { color: #777; }
+a { transition: all 0.4s ease-in-out; }
+a:hover {  text-decoration: none; }
+
+/* Rewrite style */
+#header a:hover { color: #00c6d7; background-color: transparent; }
+.navbar-nav>li>a { font-weight: 500; }
+
+
+/* Header */
+.nav > li { display: inline-block; }
