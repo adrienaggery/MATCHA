@@ -1,8 +1,8 @@
 body { display: flex; flex-direction: column; min-height: 100vh; }
 .site-content { flex: 1; width: 100%; }
 #header a { color: #777; }
-a { transition: all 0.4s ease-in-out; }
-a:hover {  text-decoration: none; }
+a { transition: all 0.4s ease-out; color: inherit; }
+a:hover { text-decoration: none; color: #00c6d7; }
 
 /* Rewrite style */
 #header a:hover { color: #00c6d7; background-color: transparent; }
@@ -11,3 +11,7 @@ a:hover {  text-decoration: none; }
 
 /* Header */
 .nav > li { display: inline-block; }
+
+
+/* Footer */
+.site-footer p { padding-right: 40px; }
