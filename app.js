@@ -6,6 +6,28 @@ var express = require('express'),
 	mysql 	= require('mysql'),
 	fs 		= require('fs');
 
+
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'root',
+  database : 'matcha'
+});
+
+// connection.connect();
+
+// connection.query('SELECT * from users', function(err, rows, fields) {
+//   if (!err)
+//     console.log('The solution is: ', rows);
+//   else
+//     console.log('Error while performing Query.');
+// 	console.log(err)
+// });
+
+// connection.end();
+
+
+
 require('./routes')(app);
 
 app.set('view engine', 'ejs');
@@ -18,4 +40,4 @@ app.use("/public", express.static(__dirname + "/public"));
 // 	res.render('pages/index');
 // });
 
-server.listen(8080);
+server.listen(3000);
