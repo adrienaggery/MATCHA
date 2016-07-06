@@ -7,7 +7,7 @@ a:hover { text-decoration: none; color: #D9187C; font-size: 1.1em; }
 /* Rewrite style */
 #header a:hover { color: #D9187C; background-color: transparent; }
 .navbar-nav>li>a { font-weight: 500; }
-button { border: 1px solid #D9187C; color: #D9187C; background-color: transparent; padding: 6px 11px 7px; font-weight: bold; transition: all 0.4s ease-out }
+button { border: 1px solid #D9187C; color: #D9187C; background-color: transparent; padding: 6px 13px 7px; font-weight: bold; transition: all 0.4s ease-out }
 button:hover { background-color: #D9187C; color: #ddd; }
 .master-home .row:nth-child(even) button:hover { color: #333; }
 
@@ -30,8 +30,8 @@ button:hover { background-color: #D9187C; color: #ddd; }
 /* Form */
 .form-horizontal button { margin-top: 25px; }
 .form-horizontal .control-label { text-align: left; }
-input[type=text] { width: 80%; color: #333; padding-left: 5px; }
+input[type=text], input[type=password] { width: 80%; color: #333; padding-left: 5px; }
 
  @media (max-width: 768px) {
- 	input[type=text] { width: 100%; }
+ 	input[type=text], input[type=password] { width: 100%; }
  }
