@@ -1,11 +1,19 @@
 module.exports = function(app) {
 	
-	app.get('/', function(req, res) {
-		res.render('pages/index');
-	});
-	app.get('/test/:id', function(req, res) {
-		var i = 'coucou';
-		res.render('pages/test',{id: req.params.id, i: i});
+	app.route('/')
+		.get(function(req, res) {
+			res.render('pages/index');
+		})
+		.post(function(req, res) {
+			res.render('pages/test');
+		})
+			
+
+
+	app.route('/test')
+		.get(function(req, res) {
+			// var i = 'xyz';
+			res.render('pages/test');
 	});
 
 }

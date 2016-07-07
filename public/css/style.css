@@ -7,9 +7,9 @@ a:hover { text-decoration: none; color: #D9187C; font-size: 1.1em; }
 /* Rewrite style */
 #header a:hover { color: #D9187C; background-color: transparent; }
 .navbar-nav>li>a { font-weight: 500; }
-button { border: 1px solid #D9187C; color: #D9187C; background-color: transparent; padding: 6px 13px 7px; font-weight: bold; transition: all 0.4s ease-out }
-button:hover { background-color: #D9187C; color: #ddd; }
-.master-home .row:nth-child(even) button:hover { color: #333; }
+input[type=submit] { border: 1px solid #D9187C; color: #D9187C; background-color: transparent; padding: 6px 13px 7px; font-weight: bold; transition: all 0.4s ease-out }
+input[type=submit]:hover { background-color: #D9187C; color: #ddd; }
+.master-home .row:nth-child(even) input[type=submit]:hover { color: #333; }
 
 
 /* Header */
