@@ -1,10 +1,11 @@
-var express = require('express'),
-	app		= express(),
-	server 	= require('http').createServer(app),
-	io		= require('socket.io').listen(server),
-	ent		= require('ent'),		// htmlentities
-	mysql 	= require('mysql'),
-	fs 		= require('fs');
+var express 	= require('express'),
+	app			= express(),
+	server 		= require('http').createServer(app),
+	io			= require('socket.io').listen(server),
+	ent			= require('ent'),		// htmlentities
+	mysql 		= require('mysql'),
+	bodyParser 	= require('body-parser'),
+	fs 			= require('fs');
 
 
 var connection = mysql.createConnection({
@@ -13,7 +14,6 @@ var connection = mysql.createConnection({
   password : 'root',
   database : 'matcha'
 });
-
 // connection.connect();
 
 // connection.query('SELECT * from users', function(err, rows, fields) {
@@ -28,7 +28,7 @@ var connection = mysql.createConnection({
 
 
 
-require('./routes')(app);
+require('./routes')(app, bodyParser);
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname+"/views");
