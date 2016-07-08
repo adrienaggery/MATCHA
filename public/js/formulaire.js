@@ -18,7 +18,7 @@ document.getElementById("password").addEventListener("input", function (e) {
 document.getElementById("password").addEventListener("blur", function (e) {
     var aideMdpElt = document.getElementById("helpPassword");
     var mdp = e.target.value;
-    if (mdp.length == 0 || mdp.length >= 8) {
+    if (mdp.length == 0) {
         aideMdpElt.textContent = '';
     }
 });

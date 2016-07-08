@@ -1,0 +1,103 @@
+<div class="row" id="signup">
+	<div class="col-xs-12">
+		<div class="col-md-offset-2 col-md-8">
+
+			<div class="text-center">
+				<h1>Sign Up</h1>
+				<hr/>
+				<h2>You are new and want to find Love ?</h2>
+				<p>
+					There we go !
+					Just complete the fileds below to create a new account and enjoy the full access site.
+				</p>
+			</div>
+
+			<form method="post" class="form-horizontal" action="/">
+
+				<div class="form-group">	<!-- gender -->
+					<label for="gender" class="col-xs-12 col-sm-offset-2 col-sm-2 col-md-offset-3 col-md-3 control-label">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						Gender
+					</label>
+
+					<div class="col-xs-12 col-sm-6">
+						<label class="radio-inline">
+							<input name="gender" id="gender" type="radio" value="male">
+							Male
+						</label>
+						<label class="radio-inline">
+							<input name="gender" id="gender" type="radio" value="female">
+							Female
+						</label>
+					</div>
+				</div>	<!-- end gender -->
+
+				<div class="form-group">	<!-- name -->
+					<label for="name" class="col-xs-12 col-sm-offset-2 col-sm-2 col-md-offset-3 col-md-3 control-label">Name</label>
+
+					<div class="col-xs-12 col-sm-6">
+						<input name="name" id="name" type="text" required>
+					</div>
+				</div>	<!-- end name -->
+
+				<div class="form-group">	<!-- first-name -->
+					<label for="first-name" class="col-xs-12 col-sm-offset-2 col-sm-2 col-md-offset-3 col-md-3 control-label">First-name</label>
+
+					<div class="col-xs-12 col-sm-6">
+						<input name="first-name" id="first-name" type="text" required>
+					</div>
+				</div>	<!-- end first-name -->
+
+				<div class="form-group"> <!-- email -->
+					<label for="email" class="col-xs-12 col-sm-offset-2 col-sm-2 col-md-offset-3 col-md-3 control-label">
+						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+						E-mail
+					</label>
+
+					<div class="col-xs-12 col-sm-6">
+						<input name="email" id="email" type="text" required>
+					</div>
+				</div>	<!-- end email -->
+
+				<div class="form-group">	<!-- orientation -->
+					<label for="orientation" class="col-xs-12 col-sm-offset-2 col-sm-2 col-md-offset-3 col-md-3 control-label">
+						<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+						Orientation
+					</label>
+
+					<div class="col-xs-12 col-sm-6">
+						<label class="radio-inline">
+							<input name="orientation" id="orientation" type="radio" value="male">
+							Male
+						</label>
+						<label class="radio-inline">
+							<input name="orientation" id="orientation" type="radio" value="female">
+							Female
+						</label>
+						<label class="radio-inline">
+							<input name="orientation" id="orientation" type="radio" value="both">
+							Both
+						</label>
+					</div>
+				</div>	<!-- end orientation -->
+
+				<div class="form-group"> <!-- password -->
+					<label for="password" class="col-xs-12 col-sm-offset-2 col-sm-2 col-md-offset-3 col-md-3 control-label">
+						<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+						Password
+					</label>
+
+					<div class="col-xs-12 col-sm-6">
+						<input name="password" id="password" type="password" required>
+					</div>
+					<div class="col-xs-12 col-sm-2 col-md-3">
+						<strong><span id="helpPassword"></span></strong>
+					</div>
+				</div>	<!-- end password -->
+
+				<input type="submit" id="signup-button" value="Sign up" class="center-block">
+			</form>
+
+		</div>
+	</div>
+</div>
