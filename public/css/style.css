@@ -3,6 +3,7 @@ body { display: flex; flex-direction: column; min-height: 100vh; background-colo
 #header a { color: #777; }
 a { transition: all 0.4s ease-out; color: inherit; }
 a:hover { text-decoration: none; color: #D9187C; font-size: 1.1em; }
+a.navbar-brand:hover { font-size: 19px; }
 
 /* Rewrite style */
 #header a:hover { color: #D9187C; background-color: transparent; }
