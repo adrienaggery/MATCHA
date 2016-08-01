@@ -1,4 +1,4 @@
-body { display: flex; flex-direction: column; min-height: 100vh; background-color: #ddd; font-family: 'Open Sans', sans-serif; }
+body { display: flex; flex-direction: column; min-height: 100vh; background-color: #ddd; font-family: 'Open Sans', sans-serif; color: #444; }
 .site-content { flex: 1; width: 100%; }
 #header a { color: #777; }
 a { transition: all 0.4s ease-out; color: inherit; }
@@ -8,9 +8,10 @@ a.navbar-brand:hover { font-size: 19px; }
 /* Rewrite style */
 #header a:hover { color: #D9187C; background-color: transparent; }
 .navbar-nav>li>a { font-weight: 500; }
+.glyphicon { color: #D9187C; }
 input[type=submit] { border: 1px solid #D9187C; color: #D9187C; background-color: transparent; padding: 6px 13px 7px; font-weight: bold; transition: all 0.4s ease-out }
 input[type=submit]:hover { background-color: #D9187C; color: #ddd; }
-.master-home .row:nth-child(even) input[type=submit]:hover { color: #333; }
+.row:nth-child(odd) input[type=submit]:hover { color: #333; }
 
 
 /* Header */
@@ -22,10 +23,10 @@ input[type=submit]:hover { background-color: #D9187C; color: #ddd; }
 
 
 /* Home */
-.master-home .row { padding: 30px 0; }
-.master-home .row:nth-child(even) { background-color: #333; color: #ddd; }
-.master-home .row:nth-child(even) hr { border-color: #D9187C; }
-.master-home .row:nth-child(odd) hr { border-color: #ccc; }
+.row { padding: 20px 0 30px; }
+.row:nth-child(odd) { background-color: #333; color: #ddd; }
+.row:nth-child(odd) hr { border-color: #D9187C; }
+.row:nth-child(even) hr { border-color: #ccc; }
 
 
 /* Form */
@@ -36,3 +37,7 @@ input[type=text], input[type=password] { width: 80%; color: #333; padding-left: 
  @media (max-width: 768px) {
  	input[type=text], input[type=password] { width: 100%; }
  }
+
+
+ /* Profile */
+ .profil-picture h2, .profil-infos h3 { text-align: center; }

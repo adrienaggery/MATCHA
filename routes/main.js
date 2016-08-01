@@ -24,6 +24,11 @@ module.exports = function(app, bodyParser) {
 		.get(function(req, res) {
 			// var i = 'xyz';
 			res.render('pages/test');
-	});
+		});
+
+	app.route('/profile')
+		.get(function(req, res) {
+			res.render('pages/profile')
+		})
 
 }
