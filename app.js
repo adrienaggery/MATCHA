@@ -40,4 +40,4 @@ app.use("/public", express.static(__dirname + "/public"));
 // 	res.render('pages/index');
 // });
 
-server.listen(3000);
+server.listen(8080);

@@ -1,0 +1,16 @@
+{
+  "name": "ma-todolist",
+  "version": "0.1.0",
+  "dependencies": {
+    "body-parser": ">=1.10.1",
+    "cookie-session": ">=1.1.0",
+    "ejs": ">=2.1.4",
+    "ent": ">=2.2.0",
+    "express": "^4.14.1",
+    "mysql": ">=2.11.1",
+    "session.socket.io": ">=0.2.1",
+    "socket.io": ">=1.4.6"
+  },
+  "author": "Mathieu",
+  "description": "Un gestionnaire de todolist ultra basique"
+}

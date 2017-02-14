@@ -1,16 +1,30 @@
 {
-    "name": "ma-todolist",
-    "version": "0.1.0",
-    "dependencies": {
-        "express": ">=4.11.0",
-        "ejs": ">=2.1.4",
-        "cookie-session": ">=1.1.0",
-        "body-parser": ">=1.10.1",
-        "socket.io": ">=1.4.6",
-        "session.socket.io": ">=0.2.1",
-        "ent": ">=2.2.0",
-        "mysql": ">=2.11.1"
-    },
-    "author": "Mathieu",
-    "description": "Un gestionnaire de todolist ultra basique"
+  "name": "matcha",
+  "version": "1.0.0",
+  "description": "dating website",
+  "main": "server.js",
+  "dependencies": {},
+  "devDependencies": {
+    "body-parser": ">=1.10.1",
+    "cookie-session": ">=1.1.0",
+    "ejs": ">=2.1.4",
+    "ent": ">=2.2.0",
+    "express": "^4.14.1",
+    "session.socket.io": ">=0.2.1",
+    "socket.io": ">=1.4.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lumpouille/MATCHA.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lumpouille/MATCHA/issues"
+  },
+  "homepage": "https://github.com/Lumpouille/MATCHA#readme"
 }
