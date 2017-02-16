@@ -1,7 +1,7 @@
-module.exports = function(app, bodyParser) {
+module.exports = function(app) {
 	
-	require('./main')(app, bodyParser);			// main navigation
-	// require('./users')(app);
-	// require('./orders')(app);
+	require('./main')(app);			// main navigation
+	// require('./profile')(app);
+	// require('./matcha')(app);
 
 }
