@@ -72,6 +72,7 @@ hr { border-color: #D9187C; }
 
 .msg { padding: 15px; text-align: center; font-weight: bold; }
 .bg-danger { color: red; border: 1px #ffaaaa solid; }
+.bg-success { color: green; border: 1px #ffaaaa solid; }
 .form-horizontal button { margin-top: 25px; }
 .form-horizontal .control-label { text-align: left; }
 input[type=text],

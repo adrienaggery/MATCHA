@@ -3,6 +3,8 @@ module.exports = function(app) {
 
 let session		= require('express-session')
 
+
+
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
 	secret: 'matcha',
@@ -46,9 +48,14 @@ app.use(require('../middlewares/flash'))
 			res.redirect('/')
 		}
 		else {
-			// REQ SQL
+			let Message = require('../models/message')
+			Message.create(req.body, function () {
+				req.flash('success', "Merci, votre compte a été créé !")
+			})
+
+			res.redirect('/')
 		}
-			
+		
 	})
 
 
