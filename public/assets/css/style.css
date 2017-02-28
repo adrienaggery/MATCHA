@@ -4,10 +4,12 @@ body { display: flex; flex-direction: column; min-height: 100vh; background-colo
 /**** Rewrite style ****/
 
 a { transition: all 0.4s ease-out; color: inherit; }
-a:hover { text-decoration: none; color: #D9187C; }
+a:hover,
+a:focus { text-decoration: none; color: #D9187C; }
 hr { border-color: #D9187C; }
 .glyphicon { color: #D9187C; }
-.row { padding: 20px 0 30px; }
+.row { padding-top: 20px; }
+.strong { font-weight: bold; color: #D9187C; }
 
 
 /**** NAVBAR ****/
@@ -29,7 +31,7 @@ hr { border-color: #D9187C; }
 }
 
 .navbar-default {
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: #252525;
 	border-color: #444;
 }
 
@@ -70,9 +72,11 @@ hr { border-color: #D9187C; }
 
 /**** FORM ****/
 
+#signup,
+#signin { padding-top: 60px; }
 .msg { padding: 15px; text-align: center; font-weight: bold; }
 .bg-danger { color: red; border: 1px #ffaaaa solid; }
-.bg-success { color: green; border: 1px #ffaaaa solid; }
+.bg-success { color: green; border: 1px green solid; }
 .form-horizontal button { margin-top: 25px; }
 .form-horizontal .control-label { text-align: left; }
 input[type=text],

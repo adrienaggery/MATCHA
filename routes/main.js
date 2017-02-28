@@ -1,7 +1,8 @@
 module.exports = function(app) {
 
 
-let session		= require('express-session')
+let session	= require('express-session')
+let User 	= require('../models/user')
 
 
 
@@ -47,13 +48,20 @@ app.use(require('../middlewares/flash'))
 			req.flash('error', "Veuillez indiquer votre mot de passe.")
 			res.redirect('/')
 		}
-		else {
-			let Message = require('../models/message')
-			Message.create(req.body, function () {
-				req.flash('success', "Merci, votre compte a été créé !")
-			})
+		else { 
+			User.exists(req.body.email, function(result) {
+				if (result === true) {
+					req.flash('error', "Cette adresse email est déjà utilisée.")
+					res.redirect('/')
+				}
+				else {
+					User.create(req.body, function () {
+						req.flash('success', "Merci, votre compte a été créé !")
+						res.redirect('/')
 
-			res.redirect('/')
+					})
+				}
+			})
 		}
 		
 	})

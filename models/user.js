@@ -1,7 +1,19 @@
 let connection = require('../config/db')
 
 
-class Message {
+class User {
+
+
+	static exists (email, callback) {
+
+		connection.query('SELECT email FROM users WHERE email = ?',
+			[email], (err, result) => {
+				if (err) throw err
+				if (result[0]) callback(true)
+				else callback(false)
+			})
+
+	}
 
 
 	static create (content, callback) {
@@ -14,7 +26,11 @@ class Message {
 
 	}
 
+	static connect (login, password, callback) {
+		// to do
+	}
+
 }
 
 
-module.exports = Message 
+module.exports = User 
