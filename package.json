@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.16.1",
+    "crypto": "0.0.3",
     "ejs": "^2.5.5",
     "ent": "^2.2.0",
     "express-session": "^1.15.1",

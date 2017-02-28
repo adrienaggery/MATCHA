@@ -16,15 +16,32 @@ class User {
 	}
 
 
-	static create (content, callback) {
+	static create (content, token, callback) {
 
-		connection.query('INSERT INTO users SET gender = ?, name = ?, firstName = ?, orientation = ?, email = ?, password = ?, createdAt = ?',
-			[content.gender, content.name, content.firstName, content.orientation, content.email, content.password, new Date()], (err, result) => {
+		connection.query('INSERT INTO users SET gender = ?, name = ?, firstName = ?, orientation = ?, email = ?, password = ?, token = ?, createdAt = ?',
+			[content.gender, content.name, content.firstName, content.orientation, content.email, content.password, token, new Date()], (err, result) => {
 				if (err) throw err
 				callback(result)
 			})
 
 	}
+
+
+	static sendEmail(email, content, callback) {
+
+		// envoie uniquement un email
+
+	}
+
+
+	static sendConfirmationEmail(email, callback) {
+
+		// cree la logique du mail de confirmation
+
+		var content = ""
+
+	}
+
 
 	static connect (login, password, callback) {
 		// to do
