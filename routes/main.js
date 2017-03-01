@@ -18,13 +18,19 @@ module.exports = function(app) {
 	app.use(require('../middlewares/flash'))
 
 
-	app.get('/', (req, res) => { 
 
-			res.render('pages/index');
-		})
+	// ******* ACCUEIL *******
+
+	app.get('/', (req, res) => { 
+		res.render('pages/index');
+	})
 
 	app.get('/signup', (req, res) => { 
 		res.redirect('/#signup')
+	})
+
+	app.get('/signin', (req, res) => { 
+		res.redirect('/#signin')
 	})
 
 	// ajouter login + token
@@ -54,6 +60,10 @@ module.exports = function(app) {
 			req.flash('error', "Veuillez indiquer votre mot de passe.")
 			res.redirect('/#signup')
 		}
+		else if (Functions.validePassword(req.body.password) === false) {
+			req.flash('error', "mot de passe entre 6 et 16 caracteres, contenir caractere special (!@#$&*) et deux lettres majuscules.")
+			res.redirect('/#signup')
+		}
 		else { 
 			User.exists(req.body.email, (result) => {
 				if (result === true) {
@@ -63,14 +73,14 @@ module.exports = function(app) {
 				else {
 					Functions.generateToken((token) => {
 						User.create(req.body, token, () => {
-							let confirm = "Merci, votre compte a été créé !\nUn email de confirmation vous a été envoyé à l'adresse : " + req.body.email + "."
+							let confirm = "Merci, votre compte a été créé ! Un email de confirmation vous a été envoyé à l'adresse : " + req.body.email + "."
 							req.flash('success', confirm)
 							res.redirect('/')
 
 						})
 						// console.log(token)
 
-						User.sendConfirmationEmail(req.body.email, () => {
+						User.sendConfirmationEmail(req.body.email, token, () => {
 
 						})
 					})
@@ -78,6 +88,13 @@ module.exports = function(app) {
 			})
 		}
 		
+	})
+
+	// activer le compte
+	app.get('/confirm/signup/:token', (req, res) => {
+		req.params.token
+
+
 	})
 
 

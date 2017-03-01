@@ -1,9 +1,19 @@
-let connection = require('../config/db')
+let connection		= require('../config/db')
+let sender 			= 'mceccatomatcha@gmail.com'
+const nodemailer 	= require('nodemailer')
+let transporter 	= nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+		user: 'mceccatomatcha@gmail.com',
+		pass: 'matcha42'
+	}
+})
 
 
 class User {
 
 
+	// check if user already exists before creating an account
 	static exists (email, callback) {
 
 		connection.query('SELECT email FROM users WHERE email = ?',
@@ -15,7 +25,7 @@ class User {
 
 	}
 
-
+	// creating a new user in db
 	static create (content, token, callback) {
 
 		connection.query('INSERT INTO users SET gender = ?, name = ?, firstName = ?, orientation = ?, email = ?, password = ?, token = ?, createdAt = ?',
@@ -26,23 +36,35 @@ class User {
 
 	}
 
+	// send an email
+	static sendEmail(from, to, content, subject, callback) {
 
-	static sendEmail(email, content, callback) {
-
-		// envoie uniquement un email
+		let mailOptions = {
+			from: from,
+			to: to,
+			subject: subject,
+			html: content
+		}
+		transporter.sendMail(mailOptions, (error, info) => {
+			if (error) throw error
+		})
 
 	}
 
+	// generate confirmation email and send it
+	static sendConfirmationEmail(email, token, callback) {
 
-	static sendConfirmationEmail(email, callback) {
+		var from = sender
+		var content = "<p>coucou, confirmez votre compte sur <a href='http://localhost:3000/confirm/signup/" + token + "' >Matcha</a> !</p>"
+		var subject = "confirmation d'inscription"
 
-		// cree la logique du mail de confirmation
-
-		var content = ""
+		this.sendEmail(from, email, content, subject, () => {
+			console.log('message sent')
+		})
 
 	}
 
-
+	// connect a user
 	static connect (login, password, callback) {
 		// to do
 	}
