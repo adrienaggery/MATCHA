@@ -1,11 +1,13 @@
+let hasha 	= require('hasha')
+let crypto 	= require('crypto')
+
 class Functions {
 
 
 	static generateToken(callback) {
 
-		require ('crypto').randomBytes(48, function(err, buffer) {
+		crypto.randomBytes(48, function(err, buffer) {
 			var token = buffer.toString('hex')
-			// console.log(token)
 			callback(token)
 		})
 
@@ -15,7 +17,7 @@ class Functions {
 
 		var minNumberofChars = 6
 		var maxNumberofChars = 16
-		var regularExpression = /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[a-z].*[a-z].*[a-z]).{6,16}$/
+		var regularExpression = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[a-z].*[a-z].*[a-z]).{6,16}$/
 
 		if (password.length < minNumberofChars || password.length > maxNumberofChars){
 			return false
@@ -24,6 +26,13 @@ class Functions {
 			return false
 		}
 
+	}
+
+
+	static hash(password, callback) {
+
+		var newPassword = hasha(password)
+		callback(newPassword)
 	}
 
 

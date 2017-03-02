@@ -61,28 +61,32 @@ module.exports = function(app) {
 			res.redirect('/#signup')
 		}
 		else if (Functions.validePassword(req.body.password) === false) {
-			req.flash('error', "mot de passe entre 6 et 16 caracteres, contenir caractere special (!@#$&*) et deux lettres majuscules.")
+			req.flash('error', "mot de passe entre 6 et 16 caracteres, contenir caractere special (!@#$&*) et une lettre majuscule.")
 			res.redirect('/#signup')
 		}
 		else { 
-			User.exists(req.body.email, (result) => {
-				if (result === true) {
-					req.flash('error', "Cette adresse email est déjà utilisée.")
+			User.emailExists(req.body.email, (result) => {
+				if (result !== false) {
+					req.flash('error', result)
 					res.redirect('/#signup')
 				}
 				else {
-					Functions.generateToken((token) => {
-						User.create(req.body, token, () => {
-							let confirm = "Merci, votre compte a été créé ! Un email de confirmation vous a été envoyé à l'adresse : " + req.body.email + "."
-							req.flash('success', confirm)
-							res.redirect('/')
+					User.loginExists(req.body.login, (result) => {
+						if (result !== false) {
+							req.flash('error', result)
+							res.redirect('/#signup')
+						}
+						else {
+							Functions.generateToken((token) => {
+								User.create(req.body, token, () => {
+									let confirm = "Merci, votre compte a été créé ! Un email de confirmation vous a été envoyé à l'adresse : " + req.body.email + "."
+									req.flash('success', confirm)
+									res.redirect('/')
 
-						})
-						// console.log(token)
-
-						User.sendConfirmationEmail(req.body.email, token, () => {
-
-						})
+								})
+								User.sendConfirmationEmail(req.body.email, req.body.login, token)
+							})
+						}
 					})
 				}
 			})
@@ -91,10 +95,16 @@ module.exports = function(app) {
 	})
 
 	// activer le compte
-	app.get('/confirm/signup/:token', (req, res) => {
-		req.params.token
-
-
+	app.get('/confirm/signup/:login', (req, res) => {
+		User.activate(req.params.login, req.query.token, (error) => {
+			if (error) {
+				req.flash('error', error)
+				res.redirect('/')
+			} else {
+				req.flash('success', "Votre compte est maintenant activé.")
+				res.redirect('/signin')
+			}
+		})
 	})
 
 

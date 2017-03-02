@@ -1,5 +1,6 @@
 let connection		= require('../config/db')
 let sender 			= 'mceccatomatcha@gmail.com'
+let Functions 		= require('./functions')
 const nodemailer 	= require('nodemailer')
 let transporter 	= nodemailer.createTransport({
 	service: 'gmail',
@@ -14,12 +15,24 @@ class User {
 
 
 	// check if user already exists before creating an account
-	static exists (email, callback) {
+	static emailExists (email, callback) {
 
 		connection.query('SELECT email FROM users WHERE email = ?',
 			[email], (err, result) => {
 				if (err) throw err
-				if (result[0]) callback(true)
+				if (result[0]) callback("Cette adresse email est déjà utilisée.")
+				else callback(false)
+			})
+
+	}
+
+	// check if user already exists before creating an account
+	static loginExists (login, callback) {
+
+		connection.query('SELECT login FROM users WHERE login = ?',
+			[login], (err, result) => {
+				if (err) throw err
+				if (result[0]) callback("Ce login est déjà utilisé.")
 				else callback(false)
 			})
 
@@ -28,11 +41,13 @@ class User {
 	// creating a new user in db
 	static create (content, token, callback) {
 
-		connection.query('INSERT INTO users SET gender = ?, name = ?, firstName = ?, orientation = ?, email = ?, password = ?, token = ?, createdAt = ?',
-			[content.gender, content.name, content.firstName, content.orientation, content.email, content.password, token, new Date()], (err, result) => {
-				if (err) throw err
-				callback(result)
-			})
+		Functions.hash(content.password, (password) => {
+			connection.query('INSERT INTO users SET gender = ?, name = ?, firstName = ?, orientation = ?, email = ?, login = ?, password = ?, token = ?, createdAt = ?',
+				[content.gender, content.name, content.firstName, content.orientation, content.email, content.login, password, token, new Date()], (err, result) => {
+					if (err) throw err
+					callback()
+				})
+		})
 
 	}
 
@@ -51,11 +66,32 @@ class User {
 
 	}
 
+
+	static activate(login, token, callback) {
+
+		connection.query('SELECT token FROM users where login = ?', [login], (err, result) => {
+			if (err) throw err
+			if (!result[0]) callback("Impossible d'activer votre compte")
+			else {
+				if (result[0].token === token) {
+					connection.query('UPDATE users SET active = 1', [], (err) => {
+						if (err) throw err
+						callback()
+					})
+				} else {
+					callback("Une erreur est survenue.")
+				}
+			}
+		})
+
+	}
+
+
 	// generate confirmation email and send it
-	static sendConfirmationEmail(email, token, callback) {
+	static sendConfirmationEmail(email, login, token) {
 
 		var from = sender
-		var content = "<p>coucou, confirmez votre compte sur <a href='http://localhost:3000/confirm/signup/" + token + "' >Matcha</a> !</p>"
+		var content = "<p>Coucou, confirmez votre compte sur <a href='http://localhost:3000/confirm/signup/" + login + "?token=" + token + "' >Matcha</a> !</p>"
 		var subject = "confirmation d'inscription"
 
 		this.sendEmail(from, email, content, subject, () => {

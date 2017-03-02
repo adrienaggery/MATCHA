@@ -11,6 +11,12 @@ hr { border-color: #D9187C; }
 .row { padding-top: 20px; }
 .strong { font-weight: bold; color: #D9187C; }
 
+/**** FLASH ****/
+.msg { padding: 15px; text-align: center; font-weight: bold; position: fixed; display: block; top: 61px; left: 0; right: 0; z-index: 50; }
+.bg-danger { color: red; border: #ffaaaa solid; border-width: 1px 0 1px 0; }
+.bg-success { color: green; border: green solid; border-width: 1px 0 1px 0; }
+#flash span { position: absolute; right: 50px; cursor: pointer; }
+
 
 /**** NAVBAR ****/
 
@@ -58,7 +64,7 @@ hr { border-color: #D9187C; }
 	background-color: transparent;
 	color: #D9187C;
 }
-	
+
 .navbar-default .navbar-toggle:hover {
 	background-color: transparent;
 }
@@ -74,9 +80,6 @@ hr { border-color: #D9187C; }
 
 #signup,
 #signin { padding-top: 60px; }
-.msg { padding: 15px; text-align: center; font-weight: bold; }
-.bg-danger { color: red; border: 1px #ffaaaa solid; }
-.bg-success { color: green; border: 1px green solid; }
 .form-horizontal button { margin-top: 25px; }
 .form-horizontal .control-label { text-align: left; }
 input[type=text],

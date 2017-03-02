@@ -24,7 +24,20 @@
 	</div> <!-- End container -->
 </nav> <!-- End navbar -->
 
+
+<% if (locals.flash && locals.flash.error) { %>
+	<p class="bg-danger msg" id="flash">
+		<%= flash.error %>
+		<span>X</span>
+	</p>
+<% } %>
+<% if (locals.flash && locals.flash.success) { %>
+	<p class="bg-success msg" id="flash">
+		<%= flash.success %>
+		<span>X</span>
+	</p>
+<% } %>
+
+
 <section class="site-content">
 	<div class=" container-fluid">
-
-
