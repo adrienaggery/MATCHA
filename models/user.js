@@ -42,8 +42,8 @@ class User {
 	static create (content, token, callback) {
 
 		Functions.hash(content.password, (password) => {
-			connection.query('INSERT INTO users SET gender = ?, name = ?, firstName = ?, orientation = ?, email = ?, login = ?, password = ?, token = ?, createdAt = ?',
-				[content.gender, content.name, content.firstName, content.orientation, content.email, content.login, password, token, new Date()], (err, result) => {
+			connection.query('INSERT INTO users SET gender = ?, name = ?, firstName = ?, orientation = ?, email = ?, login = ?, password = ?, token = ?, position = ?, createdAt = ?',
+				[content.gender, content.name, content.firstName, content.orientation, content.email, content.login, password, token, content.position, new Date()], (err, result) => {
 					if (err) throw err
 					callback()
 				})
@@ -52,10 +52,10 @@ class User {
 	}
 
 	// send an email
-	static sendEmail(from, to, content, subject, callback) {
+	static sendEmail(to, content, subject, callback) {
 
 		let mailOptions = {
-			from: from,
+			from: sender,
 			to: to,
 			subject: subject,
 			html: content
@@ -90,19 +90,33 @@ class User {
 	// generate confirmation email and send it
 	static sendConfirmationEmail(email, login, token) {
 
-		var from = sender
 		var content = "<p>Coucou, confirmez votre compte sur <a href='http://localhost:3000/confirm/signup/" + login + "?token=" + token + "' >Matcha</a> !</p>"
 		var subject = "confirmation d'inscription"
 
-		this.sendEmail(from, email, content, subject, () => {
+		this.sendEmail(email, content, subject, () => {
 			console.log('message sent')
 		})
 
 	}
 
 	// connect a user
-	static connect (login, password, callback) {
-		// to do
+	static connect (content, callback) {
+
+		Functions.hash(content.password, (password) => {
+
+			connection.query('SELECT password FROM users where login = ?', [content.login], (err, result) => {
+				if (err) throw err
+				if (!result[0]) callback("Login ou mot de passe incorrect.")
+				else {
+					if (result[0].password !== password) callback("Login ou mot de passe incorrect.")
+					else {
+						Functions.updateLastConnected(content.login, content.position)
+						callback()
+					}
+				}
+			})
+
+		})
 	}
 
 }

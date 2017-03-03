@@ -7,12 +7,15 @@
 				<hr/>
 				<h2>Are you ready to find Love ?</h2>
 				<p>
-					There we go !
+					There we go !<br />
 					Just complete the fileds below to create a new account and enjoy the full access site.
 				</p>
 			</div>
 
 			<form method="post" class="form-horizontal" action="/signup">
+
+				<!-- position -->
+				<input type="hidden" name="position" class="position">
 
 				<div class="form-group">	<!-- gender -->
 					<label for="gender" class="col-xs-12 col-sm-offset-2 col-sm-2 col-md-offset-3 col-md-3 control-label">
@@ -89,7 +92,7 @@
 
 				<div class="form-group"> <!-- login -->
 					<label for="login" class="col-xs-12 col-sm-offset-2 col-sm-2 col-md-offset-3 col-md-3 control-label">
-						<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 						Login
 					</label>
 

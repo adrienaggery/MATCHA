@@ -25,15 +25,7 @@ module.exports = function(app) {
 		res.render('pages/index');
 	})
 
-	app.get('/signup', (req, res) => { 
-		res.redirect('/#signup')
-	})
 
-	app.get('/signin', (req, res) => { 
-		res.redirect('/#signin')
-	})
-
-	// ajouter login + token
 	app.post('/signup', (req, res) => {
 			// console.log(req.body)
 		if (req.body.gender === undefined || req.body.gender === '') {
@@ -94,6 +86,7 @@ module.exports = function(app) {
 		
 	})
 
+
 	// activer le compte
 	app.get('/confirm/signup/:login', (req, res) => {
 		User.activate(req.params.login, req.query.token, (error) => {
@@ -102,10 +95,35 @@ module.exports = function(app) {
 				res.redirect('/')
 			} else {
 				req.flash('success', "Votre compte est maintenant activé.")
-				res.redirect('/signin')
+				res.redirect('/#signin')
 			}
 		})
 	})
+
+
+	app.post('/signin', (req, res) => { 
+		if (req.body.login === undefined || req.body.login === '') {
+			req.flash('error', "Veuillez indiquer votre login.")
+			res.redirect('/#signin')
+		}
+		else if (req.body.password === undefined || req.body.password === '') {
+			req.flash('error', "Veuillez indiquer votre mot de passe.")
+			res.redirect('/#signin')
+		}
+		else {
+			User.connect(req.body, (error) => {
+				if (error) {
+					req.flash('error', error)
+					res.redirect('/#signin')
+				} else {
+					req.flash('success', "vous etes maintenant connecte")
+					res.redirect('/')
+				}
+			})
+		}
+	})
+
+
 
 
 

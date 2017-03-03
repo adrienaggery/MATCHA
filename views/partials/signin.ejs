@@ -1,0 +1,49 @@
+<div class="row" id="signup">
+	<div class="col-xs-12">
+		<div class="col-md-offset-2 col-md-8">
+
+			<div class="text-center">
+				<h1>Sign In</h1>
+				<hr/>
+				<h2>Hey welcome back !</h2>
+				<p>
+					Sign in below and find who watched your profile !
+				</p>
+			</div>
+
+			<form method="post" class="form-horizontal" action="/signin">
+
+				<!-- position -->
+				<input type="hidden" name="position" class="position">
+
+				<div class="form-group"> <!-- login -->
+					<label for="login" class="col-xs-12 col-sm-offset-2 col-sm-2 col-md-offset-3 col-md-3 control-label">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						Login
+					</label>
+
+					<div class="col-xs-12 col-sm-6">
+						<input name="login" id="login" type="text" >
+					</div>
+				</div>	<!-- end login -->
+
+				<div class="form-group"> <!-- password -->
+					<label for="password" class="col-xs-12 col-sm-offset-2 col-sm-2 col-md-offset-3 col-md-3 control-label">
+						<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+						Password
+					</label>
+
+					<div class="col-xs-12 col-sm-6">
+						<input name="password" id="password" type="password" >
+					</div>
+					<div class="col-xs-12 col-sm-2 col-md-3">
+						<strong><span id="helpPassword"></span></strong>
+					</div>
+				</div>	<!-- end password -->
+
+				<input type="submit" id="signup-button" value="Sign in" class="center-block">
+			</form>
+
+		</div>
+	</div>
+</div>

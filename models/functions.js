@@ -1,5 +1,6 @@
-let hasha 	= require('hasha')
-let crypto 	= require('crypto')
+let hasha 		= require('hasha')
+let crypto 		= require('crypto')
+let connection	= require('../config/db')
 
 class Functions {
 
@@ -29,10 +30,19 @@ class Functions {
 	}
 
 
-	static hash(password, callback) {
+	static hash(data, callback) {
 
-		var newPassword = hasha(password)
-		callback(newPassword)
+		var newData = hasha(data)
+		callback(newData)
+	}
+
+
+	static updateLastConnected(login, position) {
+
+		connection.query('UPDATE users SET position = ?, lastConnected = ? WHERE login = ?', [position, new Date(), login], (err) => {
+			if (err) throw err
+		})
+
 	}
 
 
