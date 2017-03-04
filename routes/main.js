@@ -95,7 +95,7 @@ module.exports = function(app) {
 				res.redirect('/')
 			} else {
 				req.flash('success', "Votre compte est maintenant activé.")
-				res.redirect('/#signin')
+				res.redirect('/')
 			}
 		})
 	})

@@ -104,15 +104,17 @@ class User {
 
 		Functions.hash(content.password, (password) => {
 
-			connection.query('SELECT password FROM users where login = ?', [content.login], (err, result) => {
+			connection.query('SELECT password, active FROM users where login = ?', [content.login], (err, result) => {
 				if (err) throw err
-				if (!result[0]) callback("Login ou mot de passe incorrect.")
-				else {
-					if (result[0].password !== password) callback("Login ou mot de passe incorrect.")
-					else {
-						Functions.updateLastConnected(content.login, content.position)
-						callback()
-					}
+				if (!result[0]) {
+				 callback("Login ou mot de passe incorrect.")
+				} else if (result[0].active === 0) {
+					callback("Merci d'activer votre compte.")
+				} else if (result[0].password !== password) {
+					callback("Login ou mot de passe incorrect.")
+				} else {
+					Functions.updateLastConnected(content.login, content.position)
+					callback()
 				}
 			})
 
