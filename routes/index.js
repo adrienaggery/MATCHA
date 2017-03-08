@@ -18,8 +18,10 @@ module.exports = function(app) {
 	// ******* ROUTES *******
 
 	require('./main')(app, User, Functions);			// page d'accueil
-	require('./profile')(app, User, Functions);
-	require('./matcha')(app, User, Functions);
+	require('./profile')(app, User, Functions);			// page de profile
+	require('./matcha')(app, User, Functions);			// page de recherche matcha
+
+	// si mauvaise url, redirection page d'accueil
 	app.use((req, res) => {
 		res.redirect('/')
 	})

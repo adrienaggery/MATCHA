@@ -1,5 +1,5 @@
 $(function () {
-	$('#home a, #home a').on('click', function(e) {
+	$('#home a').on('click', function(e) {
 		e.preventDefault();
 		var hash = this.hash;
 		$('html, body').animate({

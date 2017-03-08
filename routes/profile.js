@@ -1,9 +1,18 @@
 module.exports = function(app, User, Functions) {
 
 
+	// ******* PROFILE *******
+
+
 	app.get('/profile', (req, res) => {
-		// console.log(req.session)
-		res.render('pages/profile')
+
+		if (req.session.sessUser == undefined) {
+			req.flash('error', "Merci de vous connecter pour accéder à cette partie du site.")
+			res.redirect('/#signin')
+		}
+		else {
+			res.render('pages/profile')
+		}
 	})
 
 }

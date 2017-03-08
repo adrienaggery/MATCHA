@@ -2,6 +2,7 @@ module.exports = function(app, User, Functions) {
 
 
 	// ******* ACCUEIL *******
+	
 
 	app.get('/', (req, res) => { 
 		res.render('pages/index')

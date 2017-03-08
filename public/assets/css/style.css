@@ -104,8 +104,8 @@ input[type=submit]:hover { background-color: #D9187C; color: #4a4a4a; }
 	.profile-infos h3 { text-align: center; }
 	.inner-profile-infos { word-wrap: break-word; }
 	.personnal-infos { padding: 0 0 10px; border-bottom: 1px solid #fff; margin: 0 15px 10px; }
-	.personnal-infos p.lead { font-weight: bold; margin: 0 0 4px; } 
 	.personnal-infos p { margin: 0 }
+	.personnal-infos p.lead { font-weight: bold; margin: 0 0 4px; } 
 }
 
 
