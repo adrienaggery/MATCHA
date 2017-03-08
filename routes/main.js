@@ -16,13 +16,13 @@ module.exports = function(app) {
 	}))
 
 	app.use(require('../middlewares/flash'))
-
+	app.use(require('../middlewares/sessUser'))
 
 
 	// ******* ACCUEIL *******
 
 	app.get('/', (req, res) => { 
-		res.render('pages/index');
+		res.render('pages/index', {toto: 'toto'})
 	})
 
 
@@ -83,7 +83,7 @@ module.exports = function(app) {
 				}
 			})
 		}
-		
+
 	})
 
 
@@ -116,13 +116,21 @@ module.exports = function(app) {
 					req.flash('error', error)
 					res.redirect('/#signin')
 				} else {
-					req.flash('success', "vous etes maintenant connecte")
+					req.sessUser('login', req.body.login)
+					req.flash('info', "vous etes maintenant connecté")
 					res.redirect('/')
 				}
 			})
 		}
 	})
 
+
+	app.get('/logout', (req, res) => {
+		req.session.destroy((err) => {
+			if (err) throw err
+			res.redirect('/')
+		})
+	})
 
 
 

@@ -19,6 +19,11 @@
 				<li>
 					<a href="/matcha">Matcha !</a>
 				</li>
+				<% if (locals.sessUser && locals.sessUser.login ) { %>
+				<li>
+					<a href="/logout">Logout</a>
+				</li>
+				<% } %>
 			</ul>
 		</div>
 	</div> <!-- End container -->
@@ -34,6 +39,12 @@
 <% if (locals.flash && locals.flash.success) { %>
 	<p class="bg-success msg" id="flash">
 		<%= flash.success %>
+		<span>X</span>
+	</p>
+<% } %>
+<% if (locals.flash && locals.flash.info) { %>
+	<p class="bg-info msg" id="flash">
+		<%= flash.info %>
 		<span>X</span>
 	</p>
 <% } %>
