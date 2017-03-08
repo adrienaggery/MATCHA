@@ -2,7 +2,7 @@ module.exports = function(app, User, Functions) {
 
 
 	// ******* ACCUEIL *******
-	
+
 
 	app.get('/', (req, res) => { 
 		res.render('pages/index')
@@ -10,7 +10,6 @@ module.exports = function(app, User, Functions) {
 
 
 	app.post('/signup', (req, res) => {
-			// console.log(req.body)
 		if (req.body.gender === undefined || req.body.gender === '') {
 			req.flash('error', "Veuillez indiquer votre genre.")
 			res.redirect('/#signup')
@@ -40,23 +39,28 @@ module.exports = function(app, User, Functions) {
 			res.redirect('/#signup')
 		}
 		else {
-			User.emailExists(req.body.email, (result) => {
-				if (result !== false) {
-					req.flash('error', result)
+			User.emailExists(req.body.email, (err) => {
+				if (err) {
+					req.flash('error', err)
 					res.redirect('/#signup')
 				}
 				else {
-					User.loginExists(req.body.login, (result) => {
-						if (result !== false) {
-							req.flash('error', result)
+					User.loginExists(req.body.login, (err) => {
+						if (err) {
+							req.flash('error', err)
 							res.redirect('/#signup')
 						}
 						else {
 							Functions.generateToken((token) => {
-								User.create(req.body, token, () => {
-									let confirm = "Merci, votre compte a été créé ! Un email de confirmation vous a été envoyé à l'adresse : " + req.body.email + "."
-									req.flash('success', confirm)
-									res.redirect('/')
+								User.create(req.body, token, (err) => {
+									if (err) {
+										req.flash('error', err)
+									}
+									else {
+										let confirm = "Merci, votre compte a été créé ! Un email de confirmation vous a été envoyé à l'adresse : " + req.body.email + "."
+										req.flash('success', confirm)
+										res.redirect('/')
+									}
 
 								})
 								User.sendConfirmationEmail(req.body.email, req.body.login, token)
@@ -72,9 +76,9 @@ module.exports = function(app, User, Functions) {
 
 	// activer le compte
 	app.get('/confirm/signup/:login', (req, res) => {
-		User.activate(req.params.login, req.query.token, (error) => {
-			if (error) {
-				req.flash('error', error)
+		User.activate(req.params.login, req.query.token, (err) => {
+			if (err) {
+				req.flash('error', err)
 				res.redirect('/')
 			} else {
 				req.flash('success', "Votre compte est maintenant activé.")
@@ -94,9 +98,9 @@ module.exports = function(app, User, Functions) {
 			res.redirect('/#signin')
 		}
 		else {
-			User.connect(req.body, (error) => {
-				if (error) {
-					req.flash('error', error)
+			User.connect(req.body, (err) => {
+				if (err) {
+					req.flash('error', err)
 					res.redirect('/#signin')
 				} else {
 					req.sessUser('login', req.body.login)

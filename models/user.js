@@ -19,9 +19,13 @@ class User {
 
 		connection.query('SELECT email FROM users WHERE email = ?',
 			[email], (err, result) => {
-				if (err) throw err
-				if (result[0]) callback("Cette adresse email est déjà utilisée.")
-				else callback(false)
+				if (err) {
+					return callback(err.stack)
+				}
+				if (result[0]) {
+					return callback("Cette adresse email est déjà utilisée.")
+				}
+				return  callback()
 			})
 
 	}
@@ -31,9 +35,13 @@ class User {
 
 		connection.query('SELECT login FROM users WHERE login = ?',
 			[login], (err, result) => {
-				if (err) throw err
-				if (result[0]) callback("Ce login est déjà utilisé.")
-				else callback(false)
+				if (err) {
+					return callback(err.stack)
+				}
+				if (result[0]) {
+					return callback("Ce login est déjà utilisé.")
+				}
+				return callback()
 			})
 
 	}
@@ -44,7 +52,9 @@ class User {
 		Functions.hash(content.password, (password) => {
 			connection.query('INSERT INTO users SET gender = ?, name = ?, firstName = ?, orientation = ?, email = ?, login = ?, password = ?, token = ?, position = ?, createdAt = ?',
 				[content.gender, content.name, content.firstName, content.orientation, content.email, content.login, password, token, content.position, new Date()], (err, result) => {
-					if (err) throw err
+					if (err) {
+						callback(err.stack)
+					}
 					callback()
 				})
 		})
@@ -52,7 +62,7 @@ class User {
 	}
 
 	// send an email
-	static sendEmail(to, content, subject, callback) {
+	static sendEmail(to, content, subject) {
 
 		let mailOptions = {
 			from: sender,
@@ -61,7 +71,6 @@ class User {
 			html: content
 		}
 		transporter.sendMail(mailOptions, (error, info) => {
-			if (error) throw error
 		})
 
 	}
@@ -69,18 +78,26 @@ class User {
 
 	static activate(login, token, callback) {
 
-		connection.query('SELECT token FROM users where login = ?', [login], (err, result) => {
-			if (err) throw err
-			if (!result[0]) callback("Impossible d'activer votre compte")
+		connection.query('SELECT token, active FROM users where login = ?', [login], (err, result) => {
+			if (err) {
+				return callback(err.stack)
+			}
+			if (!result[0]) {
+				return callback("Impossible d'activer votre compte")
+			}
+			if (result[0].active === 1) {
+				return callback("Votre compte est déjà activé.")
+			}
+			if (result[0].token === token) {
+				connection.query('UPDATE users SET active = 1', [], (err) => {
+					if (err) {
+						return callback(err)
+					}
+					return callback()
+				})
+			}
 			else {
-				if (result[0].token === token) {
-					connection.query('UPDATE users SET active = 1', [], (err) => {
-						if (err) throw err
-						callback()
-					})
-				} else {
-					callback("Une erreur est survenue.")
-				}
+				return callback("Une erreur est survenue.")
 			}
 		})
 
@@ -93,9 +110,7 @@ class User {
 		var content = "<p>Coucou, confirmez votre compte sur <a href='http://localhost:3000/confirm/signup/" + login + "?token=" + token + "' >Matcha</a> !</p>"
 		var subject = "confirmation d'inscription"
 
-		this.sendEmail(email, content, subject, () => {
-			console.log('message sent')
-		})
+		this.sendEmail(email, content, subject)
 
 	}
 
@@ -104,21 +119,44 @@ class User {
 
 		Functions.hash(content.password, (password) => {
 
-			connection.query('SELECT password, active FROM users where login = ?', [content.login], (err, result) => {
-				if (err) throw err
-				if (!result[0]) {
-				 callback("Login ou mot de passe incorrect.")
-				} else if (result[0].active === 0) {
-					callback("Merci d'activer votre compte.")
-				} else if (result[0].password !== password) {
-					callback("Login ou mot de passe incorrect.")
-				} else {
-					Functions.updateLastConnected(content.login, content.position)
-					callback()
+			connection.query('SELECT password, active FROM users WHERE login = ?', [content.login], (err, result) => {
+				if (err) {
+					return callback(err.stack)
 				}
+				if (!result[0]) {
+					return callback("Login ou mot de passe incorrect.")
+				}
+				if (result[0].active === 0) {
+					return callback("Merci d'activer votre compte.")
+				}
+				if (result[0].password !== password) {
+					return callback("Login ou mot de passe incorrect.")
+				}
+				Functions.updateLastConnected(content.login, content.position, (err) => {
+					if (err) {
+						return callback(err)
+					}
+					return callback()
+				})
+				return callback()
 			})
 
 		})
+	}
+
+	// find a specific user
+	static find (login, callback) {
+
+		connection.query('SELECT * FROM users WHERE login = ?', [login], (err, result) => {
+			if (err) {
+				return callback(err.stack)
+			}
+			if (!result[0]) {
+				return callback("Utilisateur introuvable.")
+			}
+			callback(undefined, result[0])
+		})
+
 	}
 
 }

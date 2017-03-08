@@ -37,10 +37,12 @@ class Functions {
 	}
 
 
-	static updateLastConnected(login, position) {
+	static updateLastConnected(login, position, callback) {
 
 		connection.query('UPDATE users SET position = ?, lastConnected = ? WHERE login = ?', [position, new Date(), login], (err) => {
-			if (err) throw err
+			if (err) {
+				callback(err)
+			}
 		})
 
 	}
