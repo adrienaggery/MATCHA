@@ -45,6 +45,19 @@
 </div>
 
 
+
+
+<% if (locals.sessUser && locals.sessUser.login) { %>
+	<p class="bg-info msg" id="flash">
+		<%= sessUser.login %>
+		<span>X</span>
+	</p>
+<% } %>
+
+
+<script src="/assets/js/close.js"></script>
+
+
 <% include ../partials/footer %>
 
 </body>

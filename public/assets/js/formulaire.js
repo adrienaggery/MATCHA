@@ -29,9 +29,3 @@ document.getElementById("password").addEventListener("blur", function (e) {
     }
     
 });
-
-
-$('#flash span').on('click', function(e) {
-    e.preventDefault();
-    $('#flash').fadeOut();
-})

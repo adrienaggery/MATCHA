@@ -1,28 +1,10 @@
-module.exports = function(app) {
-
-
-	let session		= require('express-session')
-	let User 		= require('../models/user')
-	let Functions	= require('../models/functions')
-
-
-
-	app.set('trust proxy', 1) // trust first proxy
-	app.use(session({
-		secret: 'matcha',
-		resave: false,
-		saveUninitialized: true,
-		cookie: { secure: false }
-	}))
-
-	app.use(require('../middlewares/flash'))
-	app.use(require('../middlewares/sessUser'))
+module.exports = function(app, User, Functions) {
 
 
 	// ******* ACCUEIL *******
 
 	app.get('/', (req, res) => { 
-		res.render('pages/index', {toto: 'toto'})
+		res.render('pages/index')
 	})
 
 
@@ -56,7 +38,7 @@ module.exports = function(app) {
 			req.flash('error', "mot de passe entre 6 et 16 caracteres, contenir caractere special (!@#$&*) et une lettre majuscule.")
 			res.redirect('/#signup')
 		}
-		else { 
+		else {
 			User.emailExists(req.body.email, (result) => {
 				if (result !== false) {
 					req.flash('error', result)
@@ -132,26 +114,5 @@ module.exports = function(app) {
 		})
 	})
 
-
-
-
-	// ******* PROFILE *******
-
-
-	app.route('/profile')
-		.get((req, res) => {
-			res.render('pages/profile')
-		})
-
-
-
-	// ******* MATCHA *******
-
-
-	app.route('/matcha')
-		.get((req, res) => {
-			// var i = 'xyz';
-			res.render('pages/test');
-		});
 
 }
