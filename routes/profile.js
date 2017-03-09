@@ -34,7 +34,7 @@ module.exports = function(app, User, Functions) {
 				}
 
 			})
-				
+
 		}
 
 
