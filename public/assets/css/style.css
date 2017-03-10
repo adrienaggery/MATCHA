@@ -1,4 +1,4 @@
-body { display: flex; flex-direction: column; min-height: 100vh; background-color: #4e4e4e; font-family: 'Open Sans', sans-serif; color: #fff; padding-top: 70px; }
+body { display: flex; flex-direction: column; min-height: 100vh; background-color: #4e4e4e; font-family: 'Open Sans', sans-serif; color: #fff; padding-top: 61px; }
 .site-content { flex: 1; }
 
 /**** Rewrite style ****/
@@ -12,7 +12,7 @@ hr { border-color: #D9187C; }
 .strong { font-weight: bold; color: #D9187C; }
 
 /**** FLASH ****/
-.msg { padding: 15px; text-align: center; font-weight: bold; position: fixed; display: block; top: 61px; left: 0; right: 0; z-index: 50; }
+.msg { padding: 15px; text-align: center; font-weight: bold; position: fixed; display: block; left: 0; right: 0; z-index: 50; }
 .bg-danger { color: red; border: #ffaaaa solid; border-width: 1px 0 1px 0; }
 .bg-success { color: green; border: green solid; border-width: 1px 0 1px 0; }
 .bg-info { color: #0091ff; border: #0091ff solid; border-width: 1px 0 1px 0; }
@@ -35,6 +35,10 @@ hr { border-color: #D9187C; }
 	.navbar-default .navbar-nav>li>a {
 		padding: 20px;
 	}
+}
+
+.navbar {
+  margin-bottom: 0px;
 }
 
 .navbar-default {
@@ -169,6 +173,12 @@ input[type=submit]:hover { background-color: #D9187C; color: #4a4a4a; }
   color: #a2a2a2;
   font-size: 14px;
   font-weight: 400;
+}
+
+.profile-userbuttons a i {
+  margin-right: 5px;
+  font-size: 14px;
+  color: #fff;
 }
 
 .profile-usermenu ul li a i {

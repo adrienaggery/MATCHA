@@ -17,16 +17,21 @@
 				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name" id="login"><%= sessUser.login %></div>
-					<div class="profile-usertitle-job"> <!-- sexe avec la bonne couleur -->
-						<!-- Maître Démoniste -->
-						<%= user.gender %>
+					<div class="profile-usertitle-job">
+						<span>Score de popularité : </span>
 					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
-					<button type="button" class="btn btn-success btn-sm">Tu me plais !</button>
-					<button type="button" class="btn btn-danger btn-sm">Message</button>
+					<a href="#" class="btn btn-success btn-sm">
+						<i class="glyphicon glyphicon-fire"></i>
+						Tu me plais !
+					</a>
+					<a href="#" class="btn btn-danger btn-sm">
+						<i class="glyphicon glyphicon-pencil"></i>
+						Message
+					</a>
 				</div>
 				<!-- END SIDEBAR BUTTONS -->
 				<!-- SIDEBAR MENU -->
@@ -34,25 +39,31 @@
 					<ul class="nav" role="tablist">
 						<li role="presentation" class="active">
 							<a href="#infos" aria-controls="infos" role="tab" data-toggle="tab">
-								<i class="glyphicon glyphicon-home"></i>
+								<i class="glyphicon glyphicon-user"></i>
 								Infos
 							</a>
 						</li>
 						<li role="presentation">
 							<a href="#photos" aria-controls="photos" role="tab" data-toggle="tab">
-								<i class="glyphicon glyphicon-user"></i>
+								<i class="glyphicon glyphicon-picture"></i>
 								Photos
 							</a>
 						</li>
 						<li role="presentation">
 							<a href="#interets" aria-controls="interets" role="tab" data-toggle="tab">
-								<i class="glyphicon glyphicon-ok"></i>
+								<i class="glyphicon glyphicon-hand-right"></i>
 								Intérêts
 							</a>
 						</li>
 						<li role="presentation">
+							<a href="#visites" aria-controls="visites" role="tab" data-toggle="tab">
+								<i class="glyphicon glyphicon-eye-open"></i>
+								Visites
+							</a>
+						</li>
+						<li role="presentation">
 							<a href="#signaler" aria-controls="signaler" role="tab" data-toggle="tab">
-								<i class="glyphicon glyphicon-flag"></i>
+								<i class="glyphicon glyphicon-alert"></i>
 								Signaler
 							</a>
 						</li>
@@ -68,41 +79,41 @@
 					<div class="gear">
 						<label>Nom :</label>
 						<span id="name" class="datainfo"><%= user.name %></span>
-						<a href="#" class="editlink">Editez vos infos</a>
+						<a href="#" class="editlink">Éditer</a>
 						<a class="savebtn btn btn-primary">Sauver</a>
 					</div>
 					
 					<div class="gear">
 						<label>Prénom :</label>
 						<span id="firstName" class="datainfo"><%= user.firstName %></span>
-						<a href="#" class="editlink">Editez vos infos</a>
+						<a href="#" class="editlink">Éditer</a>
 						<a class="savebtn btn btn-primary">Sauver</a>
 					</div>
 					
 					<div class="gear">
 						<label>Sexe :</label>
 						<span id="gender" class="datainfo"><%= user.gender %></span>
-						<a href="#" class="editlink">Editez vos infos</a>
+						<a href="#" class="editlink">Éditer</a>
 						<a class="savebtn btn btn-primary">Sauver</a>
 					</div>
 					
 					<div class="gear">
 						<label>Intéressé(e) par :</label>
 						<span id="orientation" class="datainfo"><%= user.orientation %></span>
-						<a href="#" class="editlink">Editez vos infos</a>
+						<a href="#" class="editlink">Éditer</a>
 						<a class="savebtn btn btn-primary">Sauver</a>
 					</div>
 					
 					<div class="gear">
 						<label>Email :</label>
 						<span id="email" class="datainfo"><%= user.email %></span>
-						<a href="#" class="editlink">Éditez vos infos</a>
+						<a href="#" class="editlink">Éditer</a>
 						<a class="savebtn btn btn-primary">Sauver</a>
 					</div>
 					<div class="gear">
 						<label>Bio :</label>
 						<span id="bio" class="datainfo"><%= user.bio %></span>
-						<a href="#" class="editlink">Éditez vos infos</a>
+						<a href="#" class="editlink">Éditer</a>
 						<a class="savebtn btn btn-primary">Sauver</a>
 					</div>
 				</div>
@@ -118,6 +129,10 @@
 
 			<div role="tabpanel" class="tab-pane" id="signaler">
 				 signaler
+			</div>
+
+			<div role="tabpanel" class="tab-pane" id="visites">
+				 Ils ont vu ton profile (mais ne t'ont pas liké les batards !)
 			</div>
 		</div> <!-- END COL MD 8 -->
 	</div>

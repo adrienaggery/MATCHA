@@ -5,7 +5,11 @@ module.exports = function(app, User, Functions) {
 
 
 	app.get('/', (req, res) => { 
+		if (req.session.sessUser == undefined) {
 		res.render('pages/index')
+		} else {
+			res.redirect('/profile/' + req.session.sessUser.login)
+		}
 	})
 
 
@@ -105,7 +109,7 @@ module.exports = function(app, User, Functions) {
 				} else {
 					req.sessUser('login', req.body.login)
 					req.flash('info', "vous etes maintenant connecté")
-					res.redirect('/')
+					res.redirect('/profile/' + req.session.sessUser.login)
 				}
 			})
 		}
