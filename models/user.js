@@ -159,6 +159,19 @@ class User {
 
 	}
 
+
+	static update(login, field, value, callback) {
+		if (value == '') {
+			return callback('Vous ne pouvez pas laisser un champs vide.')
+		}
+		connection.query('UPDATE users SET ' + field + ' = ? WHERE login = ?', [value, login], (err) => {
+			if (err) {
+				throw(err.stack)
+			}
+			return callback()
+		})
+	}
+
 }
 
 

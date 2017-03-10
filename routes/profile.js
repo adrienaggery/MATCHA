@@ -29,7 +29,7 @@ module.exports = function(app, User, Functions) {
 					res.redirect('/profile/' + req.session.sessUser.login)
 				}
 				else {
-					// console.log(data.name)
+					data.position = JSON.parse(data.position)
 					res.render('pages/profile', {user: data})
 				}
 
@@ -37,7 +37,15 @@ module.exports = function(app, User, Functions) {
 
 		}
 
+	})
 
+	app.post('/updateUser', (req, res) => {
+		User.update(req.body.login, req.body.field, req.body.val, (err) => {
+			if (err) {
+				req.flash('error', err)
+			}
+			res.end()
+		})
 	})
 
 
