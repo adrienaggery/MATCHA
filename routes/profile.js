@@ -40,7 +40,12 @@ module.exports = function(app, User, Functions) {
 	})
 
 	app.post('/updateUser', (req, res) => {
-		User.update(req.body.login, req.body.field, req.body.val, (err) => {
+		if (req.session.sessUser == undefined) {
+			req.flash('error', "Merci de vous connecter pour accéder à cette partie du site.")
+			res.redirect('/#signin')
+		}
+		var data = JSON.parse(req.body.data)
+		User.update(data, req.session.sessUser.login, (err) => {
 			if (err) {
 				req.flash('error', err)
 			}

@@ -18,13 +18,13 @@
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name" id="login"><%= sessUser.login %></div>
 					<div class="profile-usertitle-job">
-						<span>Score de popularité : </span>
+						<span>Score de popularité : </span> <!-- (like / nbr de vue) x 100 -->
 					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
-					<a href="#" class="btn btn-success btn-sm">
+					<a href="#" class="btn btn-info btn-sm">
 						<i class="glyphicon glyphicon-fire"></i>
 						Tu me plais !
 					</a>
@@ -48,18 +48,18 @@
 								<i class="glyphicon glyphicon-picture"></i>
 								Photos
 							</a>
-						</li>
-						<li role="presentation">
-							<a href="#interets" aria-controls="interets" role="tab" data-toggle="tab">
-								<i class="glyphicon glyphicon-hand-right"></i>
-								Intérêts
-							</a>
-						</li>
 						<li role="presentation">
 							<a href="#visites" aria-controls="visites" role="tab" data-toggle="tab">
 								<i class="glyphicon glyphicon-eye-open"></i>
 								Visites
 							</a>
+						</li>
+						<li role="presentation">
+							<a href="#suggestions" aria-controls="suggestions" role="tab" data-toggle="tab">
+								<i class="glyphicon glyphicon-hand-right"></i>
+								Suggestions
+							</a>
+						</li>
 						</li>
 						<li role="presentation">
 							<a href="#signaler" aria-controls="signaler" role="tab" data-toggle="tab">
@@ -75,60 +75,156 @@
 
 		<div class="col-md-8 tab-content">
 			<div role="tabpanel" class="tab-pane active" id="infos">
-				<div class="profileinfo">
+
+				<div class="profileinfo" id="profileinfo">
 					<div class="gear">
 						<label>Nom :</label>
 						<span id="name" class="datainfo"><%= user.name %></span>
-						<a href="#" class="editlink">Éditer</a>
-						<a class="savebtn btn btn-primary">Sauver</a>
 					</div>
-					
+
 					<div class="gear">
 						<label>Prénom :</label>
 						<span id="firstName" class="datainfo"><%= user.firstName %></span>
-						<a href="#" class="editlink">Éditer</a>
-						<a class="savebtn btn btn-primary">Sauver</a>
 					</div>
-					
+
 					<div class="gear">
-						<label>Sexe :</label>
-						<span id="gender" class="datainfo"><%= user.gender %></span>
-						<a href="#" class="editlink">Éditer</a>
-						<a class="savebtn btn btn-primary">Sauver</a>
-					</div>
-					
-					<div class="gear">
-						<label>Intéressé(e) par :</label>
-						<span id="orientation" class="datainfo"><%= user.orientation %></span>
-						<a href="#" class="editlink">Éditer</a>
-						<a class="savebtn btn btn-primary">Sauver</a>
+						<label>Âge :</label>
+						<span id="age" class="datainfo"><%= user.age %></span>
 					</div>
 					
 					<div class="gear">
 						<label>Email :</label>
 						<span id="email" class="datainfo"><%= user.email %></span>
-						<a href="#" class="editlink">Éditer</a>
-						<a class="savebtn btn btn-primary">Sauver</a>
+					</div>
+					
+					<div class="gear">
+						<label>Sexe :</label>
+						<span id="gender" class="datainfo"><%= user.gender %></span>
+					</div>
+					
+					<div class="gear">
+						<label>Intéressé<% if (user.gender == 'Femme') {  %>e<% } %> par :</label>
+						<span id="orientation" class="datainfo"><%= user.orientation %></span>
 					</div>
 					<div class="gear">
-						<label>Bio :</label>
+						<label>À propos de vous :</label>
 						<span id="bio" class="datainfo"><%= user.bio %></span>
-						<a href="#" class="editlink">Éditer</a>
-						<a class="savebtn btn btn-primary">Sauver</a>
 					</div>
+					<a href="javascript:;" class="btn btn-warning" id="edit">
+						<i class="glyphicon glyphicon-edit"></i>
+						Modifier vos infos
+					</a>
 				</div>
-			</div>
+
+				<div class="profileinfo form-horizontal" id="profileinfo-edit"> <!-- EDIT INFO -->
+					
+					<div class="form-group">	<!-- name -->
+						<label for="edit-name" class="col-xs-12 col-sm-2 col-md-3 control-label">
+							Nom
+						</label>
+
+						<div class="col-xs-12 col-sm-7">
+							<input name="name" id="edit-name" type="text" value="<%= user.name %>" >
+						</div>
+					</div>	<!-- end name -->
+
+					<div class="form-group">	<!-- firstName -->
+						<label for="edit-firstName" class="col-xs-12 col-sm-2 col-md-3 control-label">
+							Prénom
+						</label>
+
+						<div class="col-xs-12 col-sm-7">
+							<input name="firstName" id="edit-firstName" type="text" value="<%= user.firstName %>" >
+						</div>
+					</div>	<!-- end firstName -->
+
+					<div class="form-group">	<!-- age -->
+						<label for="edit-age" class="col-xs-12 col-sm-2 col-md-3 control-label">
+							Âge
+						</label>
+
+						<div class="col-xs-12 col-sm-7">
+							<input name="age" id="edit-age" type="text" value="<%= user.age %>" >
+						</div>
+					</div>	<!-- end age -->
+
+					<div class="form-group">	<!-- email -->
+						<label for="edit-email" class="col-xs-12 col-sm-2 col-md-3 control-label">
+							Email
+						</label>
+
+						<div class="col-xs-12 col-sm-7">
+							<input name="email" id="edit-email" type="text" value="<%= user.email %>" >
+						</div>
+					</div>	<!-- end email -->
+
+					<div class="form-group">	<!-- gender -->
+						<label for="edit-gender" class="col-xs-12 col-sm-2 col-md-3 control-label">
+							Sexe
+						</label>
+
+						<div class="col-xs-12 col-sm-7">
+							<label class="radio-inline">
+								<input name="gender" id="edit-gender" type="radio" value="Homme" <% if (user.gender == 'Homme') {  %>checked="checked"<% } %> >
+								Homme
+							</label>
+							<label class="radio-inline">
+								<input name="gender" id="edit-gender" type="radio" value="Femme" <% if (user.gender == 'Femme') {  %>checked="checked"<% } %> >
+								Femme
+							</label>
+						</div>
+					</div>	<!-- end gender -->
+
+					<div class="form-group">	<!-- orientation -->
+						<label for="edit-orientation" class="col-xs-12 col-sm-2 col-md-3 control-label">
+							Intéressé(e) par
+						</label>
+
+						<div class="col-xs-12 col-sm-7">
+							<label class="radio-inline">
+								<input name="orientation" id="edit-orientation" type="radio" value="Homme" <% if (user.orientation == 'Homme') {  %>checked="checked"<% } %> >
+								Homme
+							</label>
+							<label class="radio-inline">
+								<input name="orientation" id="edit-orientation" type="radio" value="Femme"  <% if (user.orientation == 'Femme') {  %>checked="checked"<% } %> >
+								Femme
+							</label>
+							<label class="radio-inline">
+								<input name="orientation" id="edit-orientation" type="radio" value="Les deux" <% if (user.orientation == 'Les deux') {  %>checked="checked"<% } %> >
+								Les deux
+							</label>
+						</div>
+					</div>	<!-- end orientation -->
+
+					<div class="form-group">	<!-- bio -->
+						<label for="edit-bio" class="col-xs-12 col-sm-2 col-md-3 control-label">
+							À propos de vous
+						</label>
+
+						<div class="col-xs-12 col-sm-7">
+							<textarea name="bio" id="edit-bio" type="text"><%= user.bio %></textarea>
+						</div>
+					</div>	<!-- end bio -->
+
+					<a href="javascript:;" class="btn btn-success" id="validate-edit">
+						<i class="glyphicon glyphicon-ok"></i>
+						Valider vos infos
+					</a>
+
+				</div> <!-- END EDIT INFOS -->
+
+			</div> <!-- END ACTIVE TAB -->
 
 			<div role="tabpanel" class="tab-pane" id="photos">
 				 photos
 			</div>
 
-			<div role="tabpanel" class="tab-pane" id="interets">
-				 interets
-			</div>
-
 			<div role="tabpanel" class="tab-pane" id="signaler">
 				 signaler
+			</div>
+
+			<div role="tabpanel" class="tab-pane" id="suggestions">
+				 suggestions
 			</div>
 
 			<div role="tabpanel" class="tab-pane" id="visites">

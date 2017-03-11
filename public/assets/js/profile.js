@@ -1,35 +1,31 @@
 $(document).ready(function(){
-	$(".editlink").on("click", function(e){
-	  e.preventDefault();
-		var dataset = $(this).prev(".datainfo");
-		var savebtn = $(this).next(".savebtn");
-		var theid   = dataset.attr("id");
-		var newid   = theid+"-form";
-		var currval = dataset.text();
-		
-		dataset.empty();
-		
-		$('<input type="text" name="'+newid+'" id="'+newid+'" value="'+currval+'" class="hlite">').appendTo(dataset);
-		
-		$(this).css("display", "none");
-		savebtn.css("display", "block");
-	});
-	$(".savebtn").on("click", function(e){
+
+	$('#edit').on("click", function(e) {
 		e.preventDefault();
-		var elink   = $(this).prev(".editlink");
-		var dataset = elink.prev(".datainfo");
-		var newid   = dataset.attr("id");
-		
-		var cinput  = "#"+newid+"-form";
-		var einput  = $(cinput);
-		var newval  = einput.attr("value");
-		
-		$(this).css("display", "none");
-		einput.remove();
-		dataset.html(newval);
-		
-		elink.css("display", "block");
-		var user = $('#login').text();
-		$.post('/updateUser', {login: user, field: newid, val: newval});
+		$('#profileinfo').hide("slow");
+		$('#profileinfo-edit').show("slow");
 	});
+
+	$('#validate-edit').on("click", function(e) {
+		e.preventDefault();
+
+		var data = {}
+		var value = ''
+		var name = ''
+		var newid = ''
+		$('input[type="text"], input[type="radio"]:checked, textarea', '#profileinfo-edit').each(function() {
+			value = $(this).val();
+			name = $(this).attr('name')
+			newid = $(this).attr('id').split('-')[1]
+			$("#"+newid).html(value);
+			data[name] = value;
+		});
+
+		data = JSON.stringify(data)
+		$.post('/updateUser', {data: data});
+
+		$('#profileinfo-edit').hide("slow");
+		$('#profileinfo').show("slow");
+	});
+
 });
