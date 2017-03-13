@@ -50,8 +50,8 @@ class User {
 	static create (content, token, callback) {
 
 		Functions.hash(content.password, (password) => {
-			connection.query('INSERT INTO users SET gender = ?, name = ?, firstName = ?, orientation = ?, email = ?, login = ?, password = ?, token = ?, position = ?, createdAt = ?',
-				[content.gender, content.name, content.firstName, content.orientation, content.email, content.login, password, token, content.position, new Date()], (err, result) => {
+			connection.query('INSERT INTO users SET gender = ?, name = ?, firstName = ?, orientation = ?, email = ?, login = ?, password = ?, token = ?, city = ?, postal = ?, createdAt = ?',
+				[content.gender, content.name, content.firstName, content.orientation, content.email, content.login, password, token, content.city, content.postal, new Date()], (err, result) => {
 					if (err) {
 						callback(err.stack)
 					}
@@ -132,7 +132,7 @@ class User {
 				if (result[0].password !== password) {
 					return callback("Login ou mot de passe incorrect.")
 				}
-				Functions.updateLastConnected(content.login, content.position, (err) => {
+				Functions.updateLastConnected(content.login, content.city, content.postal, (err) => {
 					if (err) {
 						return callback(err)
 					}

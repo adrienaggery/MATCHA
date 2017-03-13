@@ -1,6 +1,18 @@
 module.exports = function(app, User, Functions) {
 
 
+	let multer = require('multer')
+	let storage =   multer.diskStorage({
+		destination: function (req, file, callback) {
+			callback(null, "public/assets/uploads");
+		},
+		filename: function (req, file, callback) {
+			callback(null, req.session.sessUser.login + '-' + Date.now() + '.' + file.mimetype.split('/')[1]);
+		}
+	});
+	var upload = multer({ storage : storage}).single('userPhoto');
+
+
 	// ******* PROFILE *******
 
 
@@ -29,7 +41,6 @@ module.exports = function(app, User, Functions) {
 					res.redirect('/profile/' + req.session.sessUser.login)
 				}
 				else {
-					data.position = JSON.parse(data.position)
 					res.render('pages/profile', {user: data})
 				}
 
@@ -52,6 +63,18 @@ module.exports = function(app, User, Functions) {
 			res.end()
 		})
 	})
+
+
+	app.post('/api/photo',function(req,res) {
+		upload(req, res, function(err) {
+			if (err) {
+				return res.end("Error uploading file.");
+			}
+			let imgPath = req.file.path.replace('public', '')
+			// upload en bdd imgPath
+			res.redirect('/profile/' + req.session.sessUser.login)
+		});
+	});
 
 
 }

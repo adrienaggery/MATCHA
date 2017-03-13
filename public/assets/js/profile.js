@@ -6,6 +6,7 @@ $(document).ready(function(){
 		$('#profileinfo-edit').show("slow");
 	});
 
+	// Edit des infos
 	$('#validate-edit').on("click", function(e) {
 		e.preventDefault();
 
@@ -17,7 +18,7 @@ $(document).ready(function(){
 			value = $(this).val();
 			name = $(this).attr('name')
 			newid = $(this).attr('id').split('-')[1]
-			$("#"+newid).html(value);
+			$("#"+newid).text(value);
 			data[name] = value;
 		});
 
@@ -27,5 +28,27 @@ $(document).ready(function(){
 		$('#profileinfo-edit').hide("slow");
 		$('#profileinfo').show("slow");
 	});
+
+
+	// Upload des photod
+	$('#userPhoto-send').on('click', function(e) {
+		e.preventDefault()
+		var userPhoto = new FormData($('#uploadForm')[0])
+
+		$.ajax({
+			url: '/api/photo',
+			data: userPhoto,
+			cache: false,
+			contentType: false,
+			processData: false,
+			type: 'POST',
+			success: function(data) {
+
+			}
+
+		})
+
+	})
+
 
 });

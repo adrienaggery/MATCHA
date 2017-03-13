@@ -37,9 +37,9 @@ class Functions {
 	}
 
 
-	static updateLastConnected(login, position, callback) {
+	static updateLastConnected(login, city, postal, callback) {
 
-		connection.query('UPDATE users SET position = ?, lastConnected = ? WHERE login = ?', [position, new Date(), login], (err) => {
+		connection.query('UPDATE users SET city = ?, postal = ?, lastConnected = ? WHERE login = ?', [city, postal, new Date(), login], (err) => {
 			if (err) {
 				callback(err)
 			}

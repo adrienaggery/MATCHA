@@ -14,11 +14,7 @@ module.exports = function(app, User, Functions) {
 
 
 	app.post('/signup', (req, res) => {
-		if (req.body.gender === undefined || req.body.gender === '') {
-			req.flash('error', "Veuillez indiquer votre genre.")
-			res.redirect('/#signup')
-		}
-		else if (req.body.name === undefined || req.body.name === '') {
+		if (req.body.name === undefined || req.body.name === '') {
 			req.flash('error', "Veuillez indiquer votre nom.")
 			res.redirect('/#signup')
 		}
@@ -30,8 +26,8 @@ module.exports = function(app, User, Functions) {
 			req.flash('error', "Veuillez indiquer votre email.")
 			res.redirect('/#signup')
 		}
-		else if (req.body.orientation === undefined || req.body.orientation === '') {
-			req.flash('error', "Veuillez indiquer votre orientation.")
+		else if (req.body.login === undefined || req.body.login === '') {
+			req.flash('error', "Veuillez indiquer votre login.")
 			res.redirect('/#signup')
 		}
 		else if (req.body.password === undefined || req.body.password === '') {

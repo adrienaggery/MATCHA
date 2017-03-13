@@ -226,11 +226,18 @@ textarea { min-height: 70px; }
 label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; min-width: 80px; }
 
 
-/* EDIT PROFILE */
-
-
 #profileinfo-edit {
   display: none;
+}
+
+/* Upload */
+
+.upload label span {
+  font-weight: bold;
+  padding: 3px 5px;
+}
+.upload label svg {
+  color: #fff;
 }
 
 

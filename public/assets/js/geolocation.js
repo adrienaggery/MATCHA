@@ -1,20 +1,18 @@
 
 
-var loc = document.getElementsByClassName('position')
+var city = document.getElementsByClassName('city')
+var postal = document.getElementsByClassName('postal')
 
 
 if (navigator.geolocation) {
 
 	$.getJSON('http://ipinfo.io', function(data){
-		// console.log(data)
-		var city = JSON.stringify(
-			{
-				"city": data.city,
-				"postal": data.postal
-			}
-		);
-		loc[0].value = city
-		loc[1].value = city
+
+		city[0].value = data.city
+		city[1].value = data.city
+
+		postal[0].value = data.postal
+		postal[1].value = data.postal
 
 		navigator.geolocation.getCurrentPosition(showPosition);
 	});
@@ -23,14 +21,12 @@ if (navigator.geolocation) {
 
 else {
 	$.getJSON('http://ipinfo.io', function(data){
-		var city = JSON.stringify(
-			{
-				"city": data.city,
-				"postal": data.postal
-			}
-		);
-		loc[0].value = city
-		loc[1].value = city
+		
+		city[0].value = data.city
+		city[1].value = data.city
+
+		postal[0].value = data.postal
+		postal[1].value = data.postal
 
 		navigator.geolocation.getCurrentPosition(showPosition);
 	});
@@ -43,16 +39,18 @@ function showPosition(position) {
 		// console.log(data.results[0].formatted_address);
 		var splittedLocation = data.results[0].formatted_address.split(',')[0].split(' ');
 
-		var city = JSON.stringify(
-			{
-				"city": splittedLocation[1],
-				"postal": splittedLocation[0]
-			}
-		);
+		// var city = JSON.stringify(
+		// 	{
+		// 		"city": splittedLocation[1],
+		// 		"postal": splittedLocation[0]
+		// 	}
+		// );
 
-		// console.log(splittedLocation);
-		loc[0].value = city;
-		loc[1].value = city;
+		city[0].value = splittedLocation[1]
+		city[1].value = splittedLocation[1]
+
+		postal[0].value = splittedLocation[0]
+		postal[1].value = splittedLocation[0]
 
 	});
 
