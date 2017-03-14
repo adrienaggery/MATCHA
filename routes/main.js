@@ -98,12 +98,13 @@ module.exports = function(app, User, Functions) {
 			res.redirect('/#signin')
 		}
 		else {
-			User.connect(req.body, (err) => {
+			User.connect(req.body, (err, data) => {
 				if (err) {
 					req.flash('error', err)
 					res.redirect('/#signin')
 				} else {
 					req.sessUser('login', req.body.login)
+					req.sessUser('id', data)
 					req.flash('info', "vous etes maintenant connecté")
 					res.redirect('/profile/' + req.session.sessUser.login)
 				}

@@ -65,16 +65,34 @@ module.exports = function(app, User, Functions) {
 	})
 
 
-	app.post('/api/photo',function(req,res) {
-		upload(req, res, function(err) {
+	app.post('/api/photo', (req,res) => {
+
+		User.countPhotos(req.session.sessUser.id, (err) => {
 			if (err) {
-				return res.end("Error uploading file.");
+				res.send(err)
 			}
-			let imgPath = req.file.path.replace('public', '')
-			// upload en bdd imgPath
-			res.redirect('/profile/' + req.session.sessUser.login)
-		});
-	});
+			else {
+				upload(req, res, function(err) {
+					if (err) {
+					}
+					let imgPath = req.file.path.replace('public', '')
+					User.uploadPhoto(imgPath, req.session.sessUser.id, (err) => {
+						res.send(err)
+					})
+				})
+			}
+		})
+
+	})
+
+
+	app.get('/loadPhotos', (req, res) => {
+
+		User.loadPhotos(req.session.sessUser.id, (data) => {
+			res.send(data)
+		})
+
+	})
 
 
 }

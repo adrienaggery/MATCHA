@@ -30,7 +30,7 @@ $(document).ready(function(){
 	});
 
 
-	// Upload des photod
+	// Upload des photos
 	$('#userPhoto-send').on('click', function(e) {
 		e.preventDefault()
 		var userPhoto = new FormData($('#uploadForm')[0])
@@ -43,12 +43,33 @@ $(document).ready(function(){
 			processData: false,
 			type: 'POST',
 			success: function(data) {
+				if (data) {
+					$('#uploadStatus').text(data)
+				}
+				else {
+					$('#uploadStatus').text('Upload réussi !')
+					handleLoadPhotos()
+				}
+			}
+		})
 
+	})
+
+	handleLoadPhotos()
+
+
+	function handleLoadPhotos() {
+
+		$.get('/loadPhotos', function(data) {
+			$('#loadPhotos').html('')
+			for (i in data) {
+				// console.log(data[i].path)
+				$('#loadPhotos').append('<img src="' + data[i].path + '" class="img-responsive col-md-4 profilePhoto" />')
 			}
 
 		})
 
-	})
+	}
 
 
 });

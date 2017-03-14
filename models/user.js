@@ -119,7 +119,7 @@ class User {
 
 		Functions.hash(content.password, (password) => {
 
-			connection.query('SELECT password, active FROM users WHERE login = ?', [content.login], (err, result) => {
+			connection.query('SELECT id, password, active FROM users WHERE login = ?', [content.login], (err, result) => {
 				if (err) {
 					return callback(err.stack)
 				}
@@ -136,9 +136,8 @@ class User {
 					if (err) {
 						return callback(err)
 					}
-					return callback()
 				})
-				return callback()
+				return callback(undefined, result[0].id)
 			})
 
 		})
@@ -167,6 +166,45 @@ class User {
 			}
 			return callback()
 		})
+	}
+
+
+	static countPhotos(userId, callback) {
+
+		connection.query('SELECT COUNT(id) AS nbr FROM photos WHERE user_id = ?', [userId], (err, result) => {
+			if (err) {
+				return callback(err.stack)
+			}
+			if (!result[0]) {
+				return callback()
+			}
+			if (result[0].nbr >= '5') {
+				return callback("Nombre maximum de photos atteint.")
+			}
+			callback()
+		})
+
+	}
+
+
+	static uploadPhoto(imgPath, userId, callback) {
+
+		connection.query('INSERT INTO photos SET user_id = ?, path = ?', [userId, imgPath], (err) => {
+			if (err) {
+				return callback(err.stack)
+			}
+			callback()
+		})
+
+	}
+
+
+	static loadPhotos(userId, callback) {
+
+		connection.query('SELECT path FROM photos WHERE user_id = ?', [userId], (err, result) => {
+			return callback(result)
+		})
+
 	}
 
 }

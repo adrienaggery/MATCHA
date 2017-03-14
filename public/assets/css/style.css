@@ -246,6 +246,10 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
   color: #fff;
 }
 
+.profilePhoto {
+  padding-bottom: 15px;
+}
+
 
 
 
