@@ -13,192 +13,30 @@
 
 		<div class="col-md-8 tab-content">
 			<div role="tabpanel" class="tab-pane active" id="infos">
-				<p id="profile-error"></p>
-				<div class="profileinfo" id="profileinfo">
-					<div class="gear">
-						<label>Nom :</label>
-						<span id="name" class="datainfo"><%= user.name %></span>
-					</div>
+				<% include ../partials/profileInfos %>
 
-					<div class="gear">
-						<label>Prénom :</label>
-						<span id="firstName" class="datainfo"><%= user.firstName %></span>
-					</div>
-
-					<div class="gear">
-						<label>Âge :</label>
-						<span id="age" class="datainfo"><%= user.age %></span>
-					</div>
-
-					<div class="gear">
-						<label>Ville :</label>
-						<span id="city" class="datainfo"><%= user.city %></span>
-					</div>
-
-					<div class="gear">
-						<label>Code postal :</label>
-						<span id="postal" class="datainfo"><%= user.postal %></span>
-					</div>
-
-					<div class="gear">
-						<label>Email :</label>
-						<span id="email" class="datainfo"><%= user.email %></span>
-					</div>
-
-					<div class="gear">
-						<label>Sexe :</label>
-						<span id="gender" class="datainfo"><%= user.gender %></span>
-					</div>
-
-					<div class="gear">
-						<label>Intéressé<% if (user.gender == 'Femme') {  %>e<% } %> par :</label>
-						<span id="orientation" class="datainfo"><%= user.orientation %></span>
-					</div>
-
-					<div class="gear">
-						<label>À propos de vous :</label>
-						<span id="bio" class="datainfo"><%= user.bio %></span>
-					</div>
-
-					<a href="javascript:;" class="btn btn-warning" id="edit">
-						<i class="glyphicon glyphicon-edit"></i>
-						Modifier vos infos
-					</a>
-				</div>
-
-				<div class="profileinfo form-horizontal" id="profileinfo-edit"> <!-- EDIT INFO -->
-					
-					<div class="form-group">	<!-- name -->
-						<label for="edit-name" class="col-xs-12 col-sm-2 col-md-3 control-label">
-							Nom
-						</label>
-
-						<div class="col-xs-12 col-sm-7">
-							<input name="name" id="edit-name" type="text" value="<%= user.name %>" >
-						</div>
-					</div>	<!-- end name -->
-
-					<div class="form-group">	<!-- firstName -->
-						<label for="edit-firstName" class="col-xs-12 col-sm-2 col-md-3 control-label">
-							Prénom
-						</label>
-
-						<div class="col-xs-12 col-sm-7">
-							<input name="firstName" id="edit-firstName" type="text" value="<%= user.firstName %>" >
-						</div>
-					</div>	<!-- end firstName -->
-
-					<div class="form-group">	<!-- age -->
-						<label for="edit-age" class="col-xs-12 col-sm-2 col-md-3 control-label">
-							Âge
-						</label>
-
-						<div class="col-xs-12 col-sm-7">
-							<input name="age" id="edit-age" type="text" value="<%= user.age %>" >
-						</div>
-					</div>	<!-- end age -->
-
-					<div class="form-group">	<!-- city -->
-						<label for="edit-city" class="col-xs-12 col-sm-2 col-md-3 control-label">
-							Ville
-						</label>
-
-						<div class="col-xs-12 col-sm-7">
-							<input name="city" id="edit-city" type="text" value="<%= user.city %>" >
-						</div>
-					</div>	<!-- end city -->
-
-					<div class="form-group">	<!-- postal -->
-						<label for="edit-postal" class="col-xs-12 col-sm-2 col-md-3 control-label">
-							Code postal
-						</label>
-
-						<div class="col-xs-12 col-sm-7">
-							<input name="postal" id="edit-postal" type="text" value="<%= user.postal %>" >
-						</div>
-					</div>	<!-- end postal -->
-
-					<div class="form-group">	<!-- email -->
-						<label for="edit-email" class="col-xs-12 col-sm-2 col-md-3 control-label">
-							Email
-						</label>
-
-						<div class="col-xs-12 col-sm-7">
-							<input name="email" id="edit-email" type="text" value="<%= user.email %>" >
-						</div>
-					</div>	<!-- end email -->
-
-					<div class="form-group">	<!-- gender -->
-						<label for="edit-gender" class="col-xs-12 col-sm-2 col-md-3 control-label">
-							Sexe
-						</label>
-
-						<div class="col-xs-12 col-sm-7">
-							<label class="radio-inline">
-								<input name="gender" id="edit-gender" type="radio" value="Homme" <% if (user.gender == 'Homme') {  %>checked="checked"<% } %> >
-								Homme
-							</label>
-							<label class="radio-inline">
-								<input name="gender" id="edit-gender" type="radio" value="Femme" <% if (user.gender == 'Femme') {  %>checked="checked"<% } %> >
-								Femme
-							</label>
-						</div>
-					</div>	<!-- end gender -->
-
-					<div class="form-group">	<!-- orientation -->
-						<label for="edit-orientation" class="col-xs-12 col-sm-2 col-md-3 control-label">
-							Intéressé(e) par
-						</label>
-
-						<div class="col-xs-12 col-sm-7">
-							<label class="radio-inline">
-								<input name="orientation" id="edit-orientation" type="radio" value="Homme" <% if (user.orientation == 'Homme') {  %>checked="checked"<% } %> >
-								Homme
-							</label>
-							<label class="radio-inline">
-								<input name="orientation" id="edit-orientation" type="radio" value="Femme"  <% if (user.orientation == 'Femme') {  %>checked="checked"<% } %> >
-								Femme
-							</label>
-							<label class="radio-inline">
-								<input name="orientation" id="edit-orientation" type="radio" value="Les deux" <% if (user.orientation == 'Les deux') {  %>checked="checked"<% } %> >
-								Les deux
-							</label>
-						</div>
-					</div>	<!-- end orientation -->
-
-					<div class="form-group">	<!-- bio -->
-						<label for="edit-bio" class="col-xs-12 col-sm-2 col-md-3 control-label">
-							À propos de vous
-						</label>
-
-						<div class="col-xs-12 col-sm-7">
-							<textarea name="bio" id="edit-bio" type="text"><%= user.bio %></textarea>
-						</div>
-					</div>	<!-- end bio -->
-
-					<a href="javascript:;" class="btn btn-success" id="validate-edit">
-						<i class="glyphicon glyphicon-ok"></i>
-						Valider vos infos
-					</a>
-
-				</div> <!-- END EDIT INFOS -->
+				<% if (ownProfile == 1) { %>
+					<% include ../partials/profileEditInfos %>
+				<% } %>
+				
 
 			</div> <!-- END ACTIVE TAB -->
 
 			<div role="tabpanel" class="tab-pane" id="photos">
 				<div class="upload">
-					<form name="addProductForm" id="uploadForm" action="javascript:;" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-						<input type="file" name="userPhoto" id="userPhoto" class="inputfile" data-multiple-caption="{count} files selected" multiple style="display: none;" accept="image/*" />
-						<label for="userPhoto" class="btn btn-default">
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg>
-							<span>Sélectionnez une photo&hellip;</span>
-						</label>
-					</form>
-					<a href="javascript:;" class="btn btn-success" id="userPhoto-send">C'est parti !</a>
-					<p id="uploadStatus"></p>
+					<% if (ownProfile == 1) { %>
+						<form name="addProductForm" id="uploadForm" action="javascript:;" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+							<input type="file" name="userPhoto" id="userPhoto" class="inputfile" data-multiple-caption="{count} files selected" multiple style="display: none;" accept="image/*" />
+							<label for="userPhoto" class="btn btn-default">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg>
+								<span>Sélectionnez une photo&hellip;</span>
+							</label>
+						</form>
+						<a href="javascript:;" class="btn btn-success" id="userPhoto-send">C'est parti !</a>
+						<p id="uploadStatus"></p>
+					<% } %>
 				</div>
-				<div id="loadPhotos"></div>
-
+				<div id="loadPhotos" class="clearfix"></div>
 			</div>
 
 			<div role="tabpanel" class="tab-pane" id="signaler">
@@ -216,9 +54,8 @@
 	</div>
 </div>
 
-
+<input type="hidden" id="ownProfile" value="<%= ownProfile %>">
 <script src="/assets/js/close.js"></script>
-
 
 <% include ../partials/footer %>
 

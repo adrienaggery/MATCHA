@@ -1,0 +1,116 @@
+<div class="profileinfo form-horizontal" id="profileinfo-edit"> <!-- EDIT INFO -->
+	
+	<div class="form-group">	<!-- name -->
+		<label for="edit-name" class="col-xs-12 col-sm-2 col-md-3 control-label">
+			Nom
+		</label>
+
+		<div class="col-xs-12 col-sm-7">
+			<input name="name" id="edit-name" type="text" value="<%= user.name %>" >
+		</div>
+	</div>	<!-- end name -->
+
+	<div class="form-group">	<!-- firstName -->
+		<label for="edit-firstName" class="col-xs-12 col-sm-2 col-md-3 control-label">
+			Prénom
+		</label>
+
+		<div class="col-xs-12 col-sm-7">
+			<input name="firstName" id="edit-firstName" type="text" value="<%= user.firstName %>" >
+		</div>
+	</div>	<!-- end firstName -->
+
+	<div class="form-group">	<!-- age -->
+		<label for="edit-age" class="col-xs-12 col-sm-2 col-md-3 control-label">
+			Âge
+		</label>
+
+		<div class="col-xs-12 col-sm-7">
+			<input name="age" id="edit-age" type="text" value="<%= user.age %>" >
+		</div>
+	</div>	<!-- end age -->
+
+	<div class="form-group">	<!-- city -->
+		<label for="edit-city" class="col-xs-12 col-sm-2 col-md-3 control-label">
+			Ville
+		</label>
+
+		<div class="col-xs-12 col-sm-7">
+			<input name="city" id="edit-city" type="text" value="<%= user.city %>" >
+		</div>
+	</div>	<!-- end city -->
+
+	<div class="form-group">	<!-- postal -->
+		<label for="edit-postal" class="col-xs-12 col-sm-2 col-md-3 control-label">
+			Code postal
+		</label>
+
+		<div class="col-xs-12 col-sm-7">
+			<input name="postal" id="edit-postal" type="text" value="<%= user.postal %>" >
+		</div>
+	</div>	<!-- end postal -->
+
+	<div class="form-group">	<!-- email -->
+		<label for="edit-email" class="col-xs-12 col-sm-2 col-md-3 control-label">
+			Email
+		</label>
+
+		<div class="col-xs-12 col-sm-7">
+			<input name="email" id="edit-email" type="text" value="<%= user.email %>" >
+		</div>
+	</div>	<!-- end email -->
+
+	<div class="form-group">	<!-- gender -->
+		<label for="edit-gender" class="col-xs-12 col-sm-2 col-md-3 control-label">
+			Sexe
+		</label>
+
+		<div class="col-xs-12 col-sm-7">
+			<label class="radio-inline">
+				<input name="gender" id="edit-gender" type="radio" value="Homme" <% if (user.gender == 'Homme') {  %>checked="checked"<% } %> >
+				Homme
+			</label>
+			<label class="radio-inline">
+				<input name="gender" id="edit-gender" type="radio" value="Femme" <% if (user.gender == 'Femme') {  %>checked="checked"<% } %> >
+				Femme
+			</label>
+		</div>
+	</div>	<!-- end gender -->
+
+	<div class="form-group">	<!-- orientation -->
+		<label for="edit-orientation" class="col-xs-12 col-sm-2 col-md-3 control-label">
+			Intéressé(e) par
+		</label>
+
+		<div class="col-xs-12 col-sm-7">
+			<label class="radio-inline">
+				<input name="orientation" id="edit-orientation" type="radio" value="Homme" <% if (user.orientation == 'Homme') {  %>checked="checked"<% } %> >
+				Homme
+			</label>
+			<label class="radio-inline">
+				<input name="orientation" id="edit-orientation" type="radio" value="Femme"  <% if (user.orientation == 'Femme') {  %>checked="checked"<% } %> >
+				Femme
+			</label>
+			<label class="radio-inline">
+				<input name="orientation" id="edit-orientation" type="radio" value="Les deux" <% if (user.orientation == 'Les deux') {  %>checked="checked"<% } %> >
+				Les deux
+			</label>
+		</div>
+	</div>	<!-- end orientation -->
+
+	<div class="form-group">	<!-- bio -->
+		<label for="edit-bio" class="col-xs-12 col-sm-2 col-md-3 control-label">
+			À propos de vous
+		</label>
+
+		<div class="col-xs-12 col-sm-7">
+			<textarea name="bio" id="edit-bio" type="text"><%= user.bio %></textarea>
+		</div>
+	</div>	<!-- end bio -->
+
+	<a href="javascript:;" class="btn btn-success" id="validate-edit">
+		<i class="glyphicon glyphicon-ok"></i>
+		Valider vos infos
+	</a>
+
+</div> <!-- END EDIT INFOS -->

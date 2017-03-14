@@ -23,8 +23,6 @@ class User {
 					return callback(err.stack)
 				}
 				if (result[0] && result[0].email != userEmail) {
-					console.log(result[0].email)
-					console.log(userEmail)
 					return callback("Cette adresse email est déjà utilisée.")
 				}
 				return  callback()
@@ -201,10 +199,37 @@ class User {
 	}
 
 
+	static getId(login, callback) {
+
+		connection.query('SELECT id FROM users WHERE login = ?', [login], (err, result) => {
+			if (err) {
+				return callback(err.stack)
+			}
+			if (!result[0]) {
+				return callback("Utilisateur non trouvé")
+			}
+			callback(undefined, result[0].id)
+		})
+
+	}
+
+
 	static loadPhotos(userId, callback) {
 
-		connection.query('SELECT path FROM photos WHERE user_id = ?', [userId], (err, result) => {
+		connection.query('SELECT path, id FROM photos WHERE user_id = ?', [userId], (err, result) => {
 			return callback(result)
+		})
+
+	}
+
+
+	static deletePhoto(id, callback) {
+
+		connection.query('DELETE FROM photos WHERE id = ?', [id], (err) => {
+			if (err) {
+				return callback(err)
+			}
+			callback()
 		})
 
 	}

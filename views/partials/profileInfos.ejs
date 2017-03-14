@@ -1,0 +1,54 @@
+<p id="profile-error"></p>
+<div class="profileinfo" id="profileinfo">
+	<div class="gear">
+		<label>Nom :</label>
+		<span id="name" class="datainfo"><%= user.name %></span>
+	</div>
+
+	<div class="gear">
+		<label>Prénom :</label>
+		<span id="firstName" class="datainfo"><%= user.firstName %></span>
+	</div>
+
+	<div class="gear">
+		<label>Âge :</label>
+		<span id="age" class="datainfo"><%= user.age %></span>
+	</div>
+
+	<div class="gear">
+		<label>Ville :</label>
+		<span id="city" class="datainfo"><%= user.city %></span>
+	</div>
+
+	<div class="gear">
+		<label>Code postal :</label>
+		<span id="postal" class="datainfo"><%= user.postal %></span>
+	</div>
+
+	<div class="gear">
+		<label>Email :</label>
+		<span id="email" class="datainfo"><%= user.email %></span>
+	</div>
+
+	<div class="gear">
+		<label>Sexe :</label>
+		<span id="gender" class="datainfo"><%= user.gender %></span>
+	</div>
+
+	<div class="gear">
+		<label>Intéressé<% if (user.gender == 'Femme') {  %>e<% } %> par :</label>
+		<span id="orientation" class="datainfo"><%= user.orientation %></span>
+	</div>
+
+	<div class="gear">
+		<label>À propos de vous :</label>
+		<span id="bio" class="datainfo"><%= user.bio %></span>
+	</div>
+
+	<% if (ownProfile == 1) { %>
+		<a href="javascript:;" class="btn btn-warning" id="edit">
+			<i class="glyphicon glyphicon-edit"></i>
+			Modifier vos infos
+		</a>
+	<% } %>
+</div>

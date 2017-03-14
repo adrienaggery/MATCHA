@@ -1,7 +1,7 @@
 module.exports = function(app, User, Functions) {
 
-
-	let multer = require('multer')
+	let fs 		= require('fs')
+	let multer 	= require('multer')
 	let storage =   multer.diskStorage({
 		destination: function (req, file, callback) {
 			callback(null, "public/assets/uploads");
@@ -35,13 +35,17 @@ module.exports = function(app, User, Functions) {
 			res.redirect('/#signin')
 		}
 		else {
+			var ownProfile = 0
+			if (req.session.sessUser.login === req.params.user ) {
+				var ownProfile = 1
+			}
 			User.find(req.params.user, (err, data) => {
 				if (err) {
 					req.flash('error', err)
 					res.redirect('/profile/' + req.session.sessUser.login)
 				}
 				else {
-					res.render('pages/profile', {user: data})
+					res.render('pages/profile', {user: data, ownProfile: ownProfile})
 				}
 
 			})
@@ -93,11 +97,23 @@ module.exports = function(app, User, Functions) {
 
 
 	app.post('/loadPhotos', (req, res) => {
-
-		User.loadPhotos(req.session.sessUser.id, (data) => {
-			res.send(data)
+		User.getId(req.body.user, (err, id) => {
+			User.loadPhotos(id, (data) => {
+				res.send(data)
+			})
 		})
 
+	})
+
+
+	app.post('/deletePhoto', (req, res) => {
+		User.deletePhoto(req.body.imgId, (err) => {
+			if (!err) {
+				fs.unlink("public"+req.body.imgSrc, () => {
+					res.end()
+				})
+			}
+		})
 	})
 
 

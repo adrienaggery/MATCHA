@@ -242,12 +242,25 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
   color: #000;
 }
 
+.upload {
+  margin-bottom: 30px;
+}
+
 .upload label svg {
   color: #fff;
 }
 
-.profilePhoto {
+.img-container {
   padding-bottom: 15px;
+  position: relative;
+}
+
+.img-container span.delete {
+  position: absolute;
+  top: -14px;
+  right: 5px;
+  padding: 5px;
+  cursor: pointer;
 }
 
 
