@@ -39,7 +39,7 @@ module.exports = function(app, User, Functions) {
 			res.redirect('/#signup')
 		}
 		else {
-			User.emailExists(req.body.email, (err) => {
+			User.emailExists(req.body.email, null, (err) => {
 				if (err) {
 					req.flash('error', err)
 					res.redirect('/#signup')
@@ -98,13 +98,14 @@ module.exports = function(app, User, Functions) {
 			res.redirect('/#signin')
 		}
 		else {
-			User.connect(req.body, (err, data) => {
+			User.connect(req.body, (err, id, email) => {
 				if (err) {
 					req.flash('error', err)
 					res.redirect('/#signin')
 				} else {
 					req.sessUser('login', req.body.login)
-					req.sessUser('id', data)
+					req.sessUser('id', id)
+					req.sessUser('email', email)
 					req.flash('info', "vous etes maintenant connecté")
 					res.redirect('/profile/' + req.session.sessUser.login)
 				}

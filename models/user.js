@@ -15,14 +15,16 @@ class User {
 
 
 	// check if user already exists before creating an account
-	static emailExists (email, callback) {
+	static emailExists (email, userEmail, callback) {
 
 		connection.query('SELECT email FROM users WHERE email = ?',
 			[email], (err, result) => {
 				if (err) {
 					return callback(err.stack)
 				}
-				if (result[0]) {
+				if (result[0] && result[0].email != userEmail) {
+					console.log(result[0].email)
+					console.log(userEmail)
 					return callback("Cette adresse email est déjà utilisée.")
 				}
 				return  callback()
@@ -119,7 +121,7 @@ class User {
 
 		Functions.hash(content.password, (password) => {
 
-			connection.query('SELECT id, password, active FROM users WHERE login = ?', [content.login], (err, result) => {
+			connection.query('SELECT id, email, password, active FROM users WHERE login = ?', [content.login], (err, result) => {
 				if (err) {
 					return callback(err.stack)
 				}
@@ -137,7 +139,7 @@ class User {
 						return callback(err)
 					}
 				})
-				return callback(undefined, result[0].id)
+				return callback(undefined, result[0].id, result[0].email)
 			})
 
 		})
@@ -160,7 +162,7 @@ class User {
 
 
 	static update(data, login, callback) {
-		connection.query('UPDATE users SET name = ?, firstName = ?, age = ?, email = ?, gender = ?, orientation = ?, bio = ? WHERE login = ?', [data.name, data.firstName, data.age, data.email, data.gender, data.orientation, data.bio, login], (err) => {
+		connection.query('UPDATE users SET name = ?, firstName = ?, age = ?, email = ?, gender = ?, orientation = ?, bio = ?, city = ?, postal = ? WHERE login = ?', [data.name, data.firstName, data.age, data.email, data.gender, data.orientation, data.bio, data.city, data.postal, login], (err) => {
 			if (err) {
 				throw(err.stack)
 			}

@@ -18,12 +18,19 @@ $(document).ready(function(){
 			value = $(this).val();
 			name = $(this).attr('name')
 			newid = $(this).attr('id').split('-')[1]
-			$("#"+newid).text(value);
+			$("#"+newid).text(value)
 			data[name] = value;
 		});
 
 		data = JSON.stringify(data)
-		$.post('/updateUser', {data: data});
+		$.post('/updateUser', {data: data}, function(err) {
+			if (err) {
+				$('#profile-error').text(err)
+			}
+			else {
+				$('#profile-error').text()			
+			}
+		});
 
 		$('#profileinfo-edit').hide("slow");
 		$('#profileinfo').show("slow");
@@ -60,11 +67,10 @@ $(document).ready(function(){
 
 	function handleLoadPhotos() {
 
-		$.get('/loadPhotos', function(data) {
+		$.post('/loadPhotos', function(data) {
 			$('#loadPhotos').html('')
 			for (i in data) {
-				// console.log(data[i].path)
-				$('#loadPhotos').append('<img src="' + data[i].path + '" class="img-responsive col-md-4 profilePhoto" />')
+				$('#loadPhotos').append('<img src="' + data[i].path + '" class="img-responsive center-block col-md-4 profilePhoto" />')
 			}
 
 		})

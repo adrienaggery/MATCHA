@@ -56,11 +56,17 @@ module.exports = function(app, User, Functions) {
 			res.redirect('/#signin')
 		}
 		var data = JSON.parse(req.body.data)
-		User.update(data, req.session.sessUser.login, (err) => {
+		User.emailExists(data.email, req.session.sessUser.email, (err) => {
 			if (err) {
-				req.flash('error', err)
+				res.send(err)
+			} else {
+				User.update(data, req.session.sessUser.login, (err) => {
+					if (err) {
+						req.flash('error', err)
+					}
+					res.end()
+				})
 			}
-			res.end()
 		})
 	})
 
@@ -86,7 +92,7 @@ module.exports = function(app, User, Functions) {
 	})
 
 
-	app.get('/loadPhotos', (req, res) => {
+	app.post('/loadPhotos', (req, res) => {
 
 		User.loadPhotos(req.session.sessUser.id, (data) => {
 			res.send(data)
