@@ -232,10 +232,16 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
 
 /* Upload */
 
+.upload form {
+  display: inline-block;
+}
+
 .upload label span {
   font-weight: bold;
-  padding: 3px 5px;
+  padding-left: 3px;
+  color: #000;
 }
+
 .upload label svg {
   color: #fff;
 }
