@@ -255,6 +255,10 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
   position: relative;
 }
 
+.img-container:nth-child(3n+1) {
+  clear: left;
+}
+
 .img-container span.delete {
   position: absolute;
   top: -14px;

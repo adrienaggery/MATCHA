@@ -10,7 +10,7 @@ module.exports = function(app, User, Functions) {
 			callback(null, req.session.sessUser.login + '-' + Date.now() + '.' + file.mimetype.split('/')[1]);
 		}
 	});
-	var upload = multer({ storage : storage}).single('userPhoto');
+	var upload = multer({ storage : storage}).array('userPhoto');
 
 
 	// ******* PROFILE *******
@@ -76,19 +76,24 @@ module.exports = function(app, User, Functions) {
 
 
 	app.post('/api/photo', (req,res) => {
-
-		User.countPhotos(req.session.sessUser.id, (err) => {
+		User.countPhotos(req.session.sessUser.id, (err, data) => {
 			if (err) {
 				res.send(err)
 			}
 			else {
 				upload(req, res, function(err) {
-					if (err) {
+					var len =req.files.length
+					for (let i = 0; i < len; i++ ) {
+						let imgPath = req.files[i].path.replace('public', '')
+						if (i + data >= 5) {
+							fs.unlink(req.files[i].path, () => {})
+						}
+						else {
+							User.uploadPhoto(imgPath, req.session.sessUser.id, (err) => {
+								res.send(err)
+							})
+						}
 					}
-					let imgPath = req.file.path.replace('public', '')
-					User.uploadPhoto(imgPath, req.session.sessUser.id, (err) => {
-						res.send(err)
-					})
 				})
 			}
 		})

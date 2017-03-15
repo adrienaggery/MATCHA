@@ -181,7 +181,7 @@ class User {
 			if (result[0].nbr >= '5') {
 				return callback("Nombre maximum de photos atteint.")
 			}
-			callback()
+			callback(undefined, result[0].nbr)
 		})
 
 	}
