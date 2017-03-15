@@ -29,7 +29,6 @@ module.exports = function(app, User, Functions) {
 
 
 	app.get('/profile/:user', (req, res) => {
-
 		if (req.session.sessUser == undefined) {
 			req.flash('error', "Merci de vous connecter pour accéder à cette partie du site.")
 			res.redirect('/#signin')
@@ -39,13 +38,13 @@ module.exports = function(app, User, Functions) {
 			if (req.session.sessUser.login === req.params.user ) {
 				var ownProfile = 1
 			}
-			User.find(req.params.user, (err, data) => {
+			User.find(req.params.user, (err, data, profilePic) => {
 				if (err) {
 					req.flash('error', err)
 					res.redirect('/profile/' + req.session.sessUser.login)
 				}
 				else {
-					res.render('pages/profile', {user: data, ownProfile: ownProfile})
+					res.render('pages/profile', {user: data, ownProfile: ownProfile, profilePic: profilePic})
 				}
 
 			})
@@ -89,7 +88,11 @@ module.exports = function(app, User, Functions) {
 							fs.unlink(req.files[i].path, () => {})
 						}
 						else {
-							User.uploadPhoto(imgPath, req.session.sessUser.id, (err) => {
+							let isProfile = 0;
+							if (data == 0 && i == 0) {
+								isProfile = 1
+							}
+							User.uploadPhoto(imgPath, req.session.sessUser.id, isProfile, (err) => {
 								res.send(err)
 							})
 						}

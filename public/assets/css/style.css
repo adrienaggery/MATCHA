@@ -265,6 +265,7 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
   right: 5px;
   padding: 5px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 

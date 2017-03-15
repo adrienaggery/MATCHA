@@ -146,19 +146,35 @@ class User {
 	// find a specific user
 	static find (login, callback) {
 
-		connection.query('SELECT * FROM users WHERE login = ?', [login], (err, result) => {
+		connection.query('SELECT * FROM users WHERE users.login = ?', [login], (err, result) => {
 			if (err) {
 				return callback(err.stack)
 			}
 			if (!result[0]) {
 				return callback("Utilisateur introuvable.")
 			}
-			callback(undefined, result[0])
+			this.getProfilePic(login, (err, profilePic) => {
+				callback(undefined, result[0], profilePic)
+			})
 		})
 
 	}
 
 
+	static getProfilePic(login, callback) {
+		connection.query('SELECT path FROM photos INNER JOIN users ON users.id = photos.user_id WHERE users.login = ? AND photos.isProfile = 1', [login], (err, result) => {
+			if (err) {
+				return callback(undefined)
+			}
+			if (!result[0]) {
+				return callback(undefined, undefined, undefined)
+			}
+			callback(undefined, result[0].path)
+		})
+	}
+
+
+	// Update user infos
 	static update(data, login, callback) {
 		connection.query('UPDATE users SET name = ?, firstName = ?, age = ?, email = ?, gender = ?, orientation = ?, bio = ?, city = ?, postal = ? WHERE login = ?', [data.name, data.firstName, data.age, data.email, data.gender, data.orientation, data.bio, data.city, data.postal, login], (err) => {
 			if (err) {
@@ -187,9 +203,9 @@ class User {
 	}
 
 
-	static uploadPhoto(imgPath, userId, callback) {
+	static uploadPhoto(imgPath, userId, isProfile, callback) {
 
-		connection.query('INSERT INTO photos SET user_id = ?, path = ?', [userId, imgPath], (err) => {
+		connection.query('INSERT INTO photos SET user_id = ?, path = ?, isProfile = ?', [userId, imgPath, isProfile], (err) => {
 			if (err) {
 				return callback(err.stack)
 			}
