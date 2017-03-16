@@ -252,6 +252,7 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
 
 .img-container {
   padding-bottom: 15px;
+  margin-bottom: 20px;
   position: relative;
 }
 
@@ -263,7 +264,18 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
   position: absolute;
   top: -14px;
   right: 5px;
-  padding: 5px;
+  padding: 1px 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.img-container span.setProfile {
+  position: absolute;
+  bottom: 8px;
+  right: 5px;
+  padding: 1px 5px;
+  border-radius: 50%;
   cursor: pointer;
   font-weight: bold;
 }

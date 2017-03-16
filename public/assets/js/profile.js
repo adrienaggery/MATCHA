@@ -73,7 +73,7 @@ $(document).ready(function(){
 			$('#loadPhotos').html('')
 			for (i in data) {
 				if (ownProfile == 1) {
-					$('#loadPhotos').append('<div id="' + data[i].id + '" class="img-container col-md-4"><img src="' + data[i].path + '" class="img-responsive center-block" /><span class="delete">X</span></div>')
+					$('#loadPhotos').append('<div id="' + data[i].id + '" class="img-container col-md-4"><img src="' + data[i].path + '" class="img-responsive center-block" /><span class="btn btn-danger delete">X</span><span class="btn btn-default setProfile"><i class="glyphicon glyphicon-check"></i></span></div>')
 				} else {
 					$('#loadPhotos').append('<div id="' + data[i].id + '" class="img-container col-md-4"><img src="' + data[i].path + '" class="img-responsive center-block" /></div>')
 				}
@@ -84,13 +84,22 @@ $(document).ready(function(){
 				e.preventDefault()
 				var imgId = $(this).parent().attr('id')
 				var imgSrc = $(this).prev().attr('src')
-				console.log(imgId)
-				console.log(imgSrc)
 
 				$.post('/deletePhoto', {imgId: imgId, imgSrc: imgSrc}, function(data) {
 					$('#'+imgId).fadeOut('slow', function() {
 						$(this).detach()
 					})
+				})
+			})
+
+			$('.img-container span.setProfile').on('click', function(e) {
+
+				e.preventDefault()
+				var imgId = $(this).parent().attr('id')
+				var imgSrc = $(this).prev().prev().attr('src')
+
+				$.post('/updateProfilePhoto', {imgId: imgId}, function(data) {
+					$('#profile-userpic img').attr('src', imgSrc)
 				})
 			})
 		})

@@ -230,6 +230,24 @@ class User {
 	}
 
 
+	static ownPhoto(imgId, userId, callback) {
+
+		connection.query('SELECT user_id FROM photos WHERE id = ?', [imgId], (err, result) => {
+			if (err) {
+				return callback(err.stack)
+			}
+			if (!result[0]) {
+				return callback("Photo non trouvée")
+			}
+			if (result[0].user_id !== userId) {
+				return callback("La photo n'appartient pas à l'utilisateur.")
+			}
+			callback()
+		})
+
+	}
+
+
 	static loadPhotos(userId, callback) {
 
 		connection.query('SELECT path, id FROM photos WHERE user_id = ?', [userId], (err, result) => {
@@ -250,7 +268,30 @@ class User {
 
 	}
 
+
+	static updateProfilePhoto(imgId, userId, callback) {
+
+		connection.query('UPDATE photos SET isProfile = 0 WHERE user_id = ?', [userId], (err) => {
+			if (err) {
+				return callback(err)
+			}
+			connection.query('UPDATE photos SET isProfile = 1 WHERE id = ?', [imgId], (err) => {
+				if (err) {
+					return callback("Impossible de mettre à jour la photo de profile.")
+				}
+				callback()
+			})
+		})
+
+
+	}
+
+
 }
 
 
 module.exports = User 
+
+
+
+

@@ -81,7 +81,7 @@ module.exports = function(app, User, Functions) {
 			}
 			else {
 				upload(req, res, function(err) {
-					var len =req.files.length
+					var len = req.files.length
 					for (let i = 0; i < len; i++ ) {
 						let imgPath = req.files[i].path.replace('public', '')
 						if (i + data >= 5) {
@@ -115,10 +115,40 @@ module.exports = function(app, User, Functions) {
 
 
 	app.post('/deletePhoto', (req, res) => {
-		User.deletePhoto(req.body.imgId, (err) => {
-			if (!err) {
-				fs.unlink("public"+req.body.imgSrc, () => {
-					res.end()
+		User.ownPhoto(req.body.imgId, req.session.sessUser.id, (err) => {
+			if (err) {
+				res.end()
+			}
+			else {
+				User.deletePhoto(req.body.imgId, (err) => {
+					if (err) {
+						res.send('Impossible de supprimer la photo.')
+					}
+					else {
+						fs.unlink("public"+req.body.imgSrc, () => {
+							res.end()
+						})
+					}
+
+				})
+			}
+		})
+	})
+
+
+	app.post('/updateProfilePhoto', (req, res) => {
+		User.ownPhoto(req.body.imgId, req.session.sessUser.id, (err) => {
+			if (err) {
+				res.end()
+			}
+			else {
+				User.updateProfilePhoto(req.body.imgId, req.session.sessUser.id, (err) => {
+					if (err) {
+						res.send('Impossible de mettre à jour la photo.')
+					} else {
+						res.end()
+					}
+
 				})
 			}
 		})
