@@ -17,25 +17,39 @@
 				<% if (ownProfile == 1) { %>
 					<% include ../partials/profileEditInfos %>
 				<% } %>
-				
+			</div>
 
-			</div> <!-- END ACTIVE TAB -->
+			<div role="tabpanel" class="tab-pane" id="interets">
+				<% include ../partials/profileInterets %>
+			</div>
 
 			<div role="tabpanel" class="tab-pane" id="photos">
 				<% include ../partials/profilePhotos %>
 			</div>
 
-			<div role="tabpanel" class="tab-pane" id="visites">
-				 Ils ont vu ton profile (mais ne t'ont pas liké les batards !)
-			</div>
+			<% if (ownProfile == 1 ) { %>
+				<div role="tabpanel" class="tab-pane" id="visites">
+					 Ils ont vu ton profile (mais ne t'ont pas liké les batards !)
+				</div>
 
-			<div role="tabpanel" class="tab-pane" id="suggestions">
-				 suggestions
-			</div>
+				<div role="tabpanel" class="tab-pane" id="likes">
+					 <h2>Ils ont liké ton profile !</h2>
+				</div>
 
-			<div role="tabpanel" class="tab-pane" id="signaler">
-				 signaler
-			</div>
+				<div role="tabpanel" class="tab-pane" id="suggestions">
+					 suggestions
+				</div>
+			<% } %>
+
+			<% if (ownProfile != 1 ) { %>
+				<div role="tabpanel" class="tab-pane" id="signaler">
+					 signaler
+				</div>
+
+				<div role="tabpanel" class="tab-pane" id="bloquer">
+					 bloquer
+				</div>
+			<% } %>
 		</div> <!-- END COL MD 8 -->
 	</div>
 </div>

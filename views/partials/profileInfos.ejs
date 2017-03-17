@@ -25,10 +25,12 @@
 		<span id="postal" class="datainfo"><%= user.postal %></span>
 	</div>
 
-	<div class="gear">
-		<label>Email :</label>
-		<span id="email" class="datainfo"><%= user.email %></span>
-	</div>
+	<% if (ownProfile == 1) { %>
+		<div class="gear">
+			<label>Email :</label>
+			<span id="email" class="datainfo"><%= user.email %></span>
+		</div>
+		<% } %>
 
 	<div class="gear">
 		<label>Sexe :</label>

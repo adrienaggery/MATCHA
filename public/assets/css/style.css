@@ -254,16 +254,23 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
   padding-bottom: 15px;
   margin-bottom: 20px;
   position: relative;
+  display: inline-block;
+  margin-right: 15px;
 }
 
 .img-container:nth-child(3n+1) {
   clear: left;
 }
 
+.img-container img {
+  max-height: 200px;
+  width: auto;
+}
+
 .img-container span.delete {
   position: absolute;
   top: -14px;
-  right: 5px;
+  right: -10px;
   padding: 1px 6px;
   border-radius: 50%;
   cursor: pointer;
@@ -273,7 +280,7 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
 .img-container span.setProfile {
   position: absolute;
   bottom: 8px;
-  right: 5px;
+  right: -10px;
   padding: 1px 5px;
   border-radius: 50%;
   cursor: pointer;

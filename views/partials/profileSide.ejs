@@ -19,14 +19,23 @@
 	<!-- END SIDEBAR USER TITLE -->
 	<!-- SIDEBAR BUTTONS -->
 	<div class="profile-userbuttons">
-		<a href="#" class="btn btn-info btn-sm">
-			<i class="glyphicon glyphicon-fire"></i>
-			Tu me plais !
-		</a>
-		<a href="#" class="btn btn-danger btn-sm">
-			<i class="glyphicon glyphicon-pencil"></i>
-			Message
-		</a>
+		<% if (ownProfile != 1) { %>
+			<a href="#" class="btn btn-info btn-sm" id="like">
+				<!-- si l'utilisateur like deja { -->
+					<i class="glyphicon glyphicon-heart-empty"></i>
+					Tu me plais !
+				<!-- } else { -->
+				<!-- 	<i class="glyphicon glyphicon-heart"></i>
+					Tu ne me plais plus ! -->
+				<!-- } -->
+			</a>
+		<% } %>
+		<% if (ownProfile != 1 ) { %> 	<!-- ajouter condition like mutuel -->
+			<a href="#" class="btn btn-danger btn-sm" id="discution">
+				<i class="glyphicon glyphicon-pencil"></i>
+				Message
+			</a>
+		<% } %>
 	</div>
 	<!-- END SIDEBAR BUTTONS -->
 	<!-- SIDEBAR MENU -->
@@ -39,29 +48,52 @@
 				</a>
 			</li>
 			<li role="presentation">
+				<a href="#interets" aria-controls="interets" role="tab" data-toggle="tab">
+					<i class="glyphicon glyphicon-tags"></i>
+					Intérêts
+				</a>
+			</li>
+			<li role="presentation">
 				<a href="#photos" aria-controls="photos" role="tab" data-toggle="tab">
 					<i class="glyphicon glyphicon-picture"></i>
 					Photos
 				</a>
-			<li role="presentation">
-				<a href="#visites" aria-controls="visites" role="tab" data-toggle="tab">
-					<i class="glyphicon glyphicon-eye-open"></i>
-					Visites
-				</a>
 			</li>
-			<li role="presentation">
-				<a href="#suggestions" aria-controls="suggestions" role="tab" data-toggle="tab">
-					<i class="glyphicon glyphicon-hand-right"></i>
-					Suggestions
-				</a>
-			</li>
-			</li>
-			<li role="presentation">
-				<a href="#signaler" aria-controls="signaler" role="tab" data-toggle="tab">
-					<i class="glyphicon glyphicon-alert"></i>
-					Signaler
-				</a>
-			</li>
+			<% if (ownProfile == 1 ) { %>
+				<li role="presentation">
+					<a href="#visites" aria-controls="visites" role="tab" data-toggle="tab">
+						<i class="glyphicon glyphicon-eye-open"></i>
+						Visites
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#likes" aria-controls="likes" role="tab" data-toggle="tab">
+						<i class="glyphicon glyphicon-fire"></i>
+						Likes
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#suggestions" aria-controls="suggestions" role="tab" data-toggle="tab">
+						<i class="glyphicon glyphicon-hand-right"></i>
+						Suggestions
+					</a>
+				</li>
+			<% } %>
+			<% if (ownProfile != 1 ) { %>
+				<li role="presentation">
+					<a href="#signaler" aria-controls="signaler" role="tab" data-toggle="tab">
+						<i class="glyphicon glyphicon-alert"></i>
+						Signaler
+					</a>
+				</li>
+
+				<li role="presentation">
+					<a href="#bloquer" aria-controls="bloquer" role="tab" data-toggle="tab">
+						<i class="glyphicon glyphicon-ban-circle"></i>
+						Bloquer
+					</a>
+				</li>
+			<% } %>
 		</ul>
 	</div>
 	<!-- END MENU -->

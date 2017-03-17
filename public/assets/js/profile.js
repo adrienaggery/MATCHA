@@ -73,9 +73,9 @@ $(document).ready(function(){
 			$('#loadPhotos').html('')
 			for (i in data) {
 				if (ownProfile == 1) {
-					$('#loadPhotos').append('<div id="' + data[i].id + '" class="img-container col-md-4"><img src="' + data[i].path + '" class="img-responsive center-block" /><span class="btn btn-danger delete">X</span><span class="btn btn-default setProfile"><i class="glyphicon glyphicon-check"></i></span></div>')
+					$('#loadPhotos').append('<div id="' + data[i].id + '" class="img-container"><img src="' + data[i].path + '" /><span class="btn btn-danger delete">X</span><span class="btn btn-default setProfile" title="C\'est ma photo de profile"><i class="glyphicon glyphicon-check"></i></span></div>')
 				} else {
-					$('#loadPhotos').append('<div id="' + data[i].id + '" class="img-container col-md-4"><img src="' + data[i].path + '" class="img-responsive center-block" /></div>')
+					$('#loadPhotos').append('<div id="' + data[i].id + '" class="img-container"><img src="' + data[i].path + '" /></div>')
 				}
 			}
 
