@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3308
--- Généré le :  Mar 14 Mars 2017 à 12:47
+-- Généré le :  Jeu 30 Mars 2017 à 08:00
 -- Version du serveur :  5.7.17
 -- Version de PHP :  7.0.16
 
@@ -36,6 +36,35 @@ CREATE TABLE `photos` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `tags`
+--
+
+CREATE TABLE `tags` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `tags`
+--
+
+INSERT INTO `tags` (`id`, `name`) VALUES
+(1, 'sport'),
+(2, 'cuisine'),
+(3, 'voyages'),
+(4, 'automobile'),
+(5, 'gaming'),
+(6, 'mode'),
+(7, 'randonnée'),
+(8, 'films'),
+(9, 'musique'),
+(10, 'lecture'),
+(11, 'détente'),
+(12, 'fête');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `users`
 --
 
@@ -58,6 +87,17 @@ CREATE TABLE `users` (
   `lastConnected` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users_tags`
+--
+
+CREATE TABLE `users_tags` (
+  `user_id` int(11) NOT NULL,
+  `tag_id` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 --
 -- Index pour les tables exportées
@@ -67,6 +107,12 @@ CREATE TABLE `users` (
 -- Index pour la table `photos`
 --
 ALTER TABLE `photos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `tags`
+--
+ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -83,7 +129,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `photos`
 --
 ALTER TABLE `photos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+--
+-- AUTO_INCREMENT pour la table `tags`
+--
+ALTER TABLE `tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `users`
 --
