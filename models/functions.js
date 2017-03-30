@@ -47,6 +47,19 @@ class Functions {
 
 	}
 
+	static loadInterestsList(callback) {
+
+		connection.query('SELECT id, name FROM tags', (err, result) => {
+			if (err) {
+				return callback(err.stack)
+			}
+			if (!result[0]) {
+				return callback('Pas de tags.')
+			}
+			return callback(undefined, result)
+		})
+	}
+
 
 }
 

@@ -1,0 +1,21 @@
+<div class="profileinfo form-horizontal" id="profileinterets-edit"> <!-- EDIT INFO -->
+
+	<h3>Liste d'intérêts :</h3>
+
+
+	<% for (interest of interestList) { %>
+		<div class="form-group">
+			<label for="<%= interest.name %>-tag" class="col-xs-12 col-sm-2 col-md-3 control-label">
+				<%= interest.name %>
+			</label>
+			<input name="tags" id="<%= interest.name %>-tag" type="checkbox" value="<%= interest.id %>" >
+		</div>
+	<% } %>
+
+
+	<a href="javascript:;" class="btn btn-success" id="validate-interest-edit">
+		<i class="glyphicon glyphicon-ok"></i>
+		Valider vos infos
+	</a>
+
+</div> <!-- END EDIT INFOS -->

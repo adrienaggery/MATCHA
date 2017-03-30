@@ -1,6 +1,8 @@
 
 $(document).ready(function(){
 
+	var user = $('#login').text()
+
 	$('#edit').on("click", function(e) {
 		e.preventDefault();
 		$('#profileinfo').hide("slow");
@@ -105,9 +107,47 @@ $(document).ready(function(){
 		})
 
 	}
+	//end upload photos
 
 
+	//interets
 
+	loadUserInterests()
+
+	function loadUserInterests() {
+		// var user = $('#login').text()
+		var interestList = $('#interestList')
+		interestList.html('')
+		$.post('/loadUserInterests', {user: user}, function(interests) {
+			for(i in interests) {
+				$('#'+interests[i].name+'-tag').attr('checked',true)
+				interestList.append('<li>#' + interests[i].name + '</li>')
+			}
+		})
+	}
+
+	$('#edit-interest').on('click', function(e) {
+		e.preventDefault()
+		$('#profileinterets').hide('slow')
+		$('#profileinterets-edit').show('slow')
+	})
+
+	$('#validate-interest-edit').on('click', function(e) {
+		e.preventDefault()
+		var list = []
+		$('input[name=tags]:checked').each(function() {
+			list.push( $(this).val() )
+		})
+		$.post('/updateUserInterests', {tagList: list }, function(err) {
+			if (err) {
+				$('#profileinterets-error').text(err)
+			}
+			loadUserInterests()
+		})
+		$('#profileinterets-edit').hide('slow')
+		$('#profileinterets').show('slow')
+
+	})
 
 
 

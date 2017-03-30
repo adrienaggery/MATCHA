@@ -107,7 +107,7 @@ class User {
 	// generate confirmation email and send it
 	static sendConfirmationEmail(email, login, token) {
 
-		var content = "<p>Coucou, confirmez votre compte sur <a href='http://localhost:3000/confirm/signup/" + login + "?token=" + token + "' >Matcha</a> !</p>"
+		var content = "<p>Coucou <strong>" + login + "</strong>, confirmez votre compte sur <a href='http://localhost:3000/confirm/signup/" + login + "?token=" + token + "' >Matcha</a> !</p>"
 		var subject = "confirmation d'inscription"
 
 		this.sendEmail(email, content, subject)
@@ -283,6 +283,39 @@ class User {
 			})
 		})
 
+	}
+
+
+	static loadUserInterests(userId, callback) {
+
+		connection.query('SELECT t.name FROM tags t INNER JOIN users_tags ut ON t.id = ut.tag_id WHERE ut.user_id = ?', [userId], (err, result) => {
+			if (err) {
+				return callback(err.stack)
+			}
+			if (!result[0]) {
+				return callback("Aucun tag")
+			}
+			callback(undefined, result)
+		})
+
+	}
+
+
+	static updateUserInterests(userId, tagList, callback) {
+
+		connection.query('DELETE FROM users_tags WHERE user_id = ?', [userId], (err) => {
+			if (err) {
+				return callback("Impossible de mettre à jour la liste d'intérêts")
+			}
+			for (let i = 0; i < tagList.length; i++) {
+				connection.query('INSERT INTO users_tags SET user_id = ?, tag_id = ?', [userId, tagList[i]], (err) => {
+					if (err) {
+						return callback("Impossible de mettre à jour la liste d'intérêts")
+					}
+					return callback()
+				})
+			}
+		})
 
 	}
 

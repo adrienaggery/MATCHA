@@ -6,70 +6,63 @@ module.exports = function(app, User, Functions) {
 
 	app.get('/', (req, res) => { 
 		if (req.session.sessUser == undefined) {
-		res.render('pages/index')
-		} else {
-			res.redirect('/profile/' + req.session.sessUser.login)
+			return res.render('pages/index')
 		}
+		return res.redirect('/profile/' + req.session.sessUser.login)
 	})
 
 
 	app.post('/signup', (req, res) => {
 		if (req.body.name === undefined || req.body.name === '') {
 			req.flash('error', "Veuillez indiquer votre nom.")
-			res.redirect('/#signup')
+			return res.redirect('/#signup')
 		}
-		else if (req.body.firstName === undefined || req.body.firstName === '') {
+		if (req.body.firstName === undefined || req.body.firstName === '') {
 			req.flash('error', "Veuillez indiquer votre prénom.")
-			res.redirect('/#signup')
+			return res.redirect('/#signup')
 		}
-		else if (req.body.email === undefined || req.body.email === '') {
+		if (req.body.email === undefined || req.body.email === '') {
 			req.flash('error', "Veuillez indiquer votre email.")
-			res.redirect('/#signup')
+			return res.redirect('/#signup')
 		}
-		else if (req.body.login === undefined || req.body.login === '') {
+		if (req.body.login === undefined || req.body.login === '') {
 			req.flash('error', "Veuillez indiquer votre login.")
-			res.redirect('/#signup')
+			return res.redirect('/#signup')
 		}
-		else if (req.body.password === undefined || req.body.password === '') {
+		if (req.body.password === undefined || req.body.password === '') {
 			req.flash('error', "Veuillez indiquer votre mot de passe.")
-			res.redirect('/#signup')
+			return res.redirect('/#signup')
 		}
-		else if (Functions.validePassword(req.body.password) === false) {
+		if (Functions.validePassword(req.body.password) === false) {
 			req.flash('error', "mot de passe entre 6 et 16 caracteres, contenir caractere special (!@#$&*) et une lettre majuscule.")
-			res.redirect('/#signup')
+			return res.redirect('/#signup')
 		}
-		else {
-			User.emailExists(req.body.email, null, (err) => {
+
+		User.emailExists(req.body.email, null, (err) => {
+			if (err) {
+				req.flash('error', err)
+				return res.redirect('/#signup')
+			}
+			User.loginExists(req.body.login, (err) => {
 				if (err) {
 					req.flash('error', err)
-					res.redirect('/#signup')
+					return res.redirect('/#signup')
 				}
-				else {
-					User.loginExists(req.body.login, (err) => {
+				Functions.generateToken((token) => {
+					req.body.login = req.body.login.replace(/\//g, "")
+					User.create(req.body, token, (err) => {
 						if (err) {
 							req.flash('error', err)
-							res.redirect('/#signup')
+							return res.redirect('/')
 						}
-						else {
-							Functions.generateToken((token) => {
-								User.create(req.body, token, (err) => {
-									if (err) {
-										req.flash('error', err)
-									}
-									else {
-										let confirm = "Merci, votre compte a été créé ! Un email de confirmation vous a été envoyé à l'adresse : " + req.body.email + "."
-										req.flash('success', confirm)
-										res.redirect('/')
-									}
-
-								})
-								User.sendConfirmationEmail(req.body.email, req.body.login, token)
-							})
-						}
+						let confirm = "Merci, votre compte a été créé ! Un email de confirmation vous a été envoyé à l'adresse : " + req.body.email + "."
+						req.flash('success', confirm)
+						return res.redirect('/')
 					})
-				}
+					User.sendConfirmationEmail(req.body.email, req.body.login, token)
+				})
 			})
-		}
+		})
 
 	})
 
@@ -79,11 +72,10 @@ module.exports = function(app, User, Functions) {
 		User.activate(req.params.login, req.query.token, (err) => {
 			if (err) {
 				req.flash('error', err)
-				res.redirect('/')
-			} else {
-				req.flash('success', "Votre compte est maintenant activé.")
-				res.redirect('/')
+				return res.redirect('/')
 			}
+			req.flash('success', "Votre compte est maintenant activé.")
+			return res.redirect('/')
 		})
 	})
 
@@ -91,33 +83,30 @@ module.exports = function(app, User, Functions) {
 	app.post('/signin', (req, res) => { 
 		if (req.body.login === undefined || req.body.login === '') {
 			req.flash('error', "Veuillez indiquer votre login.")
-			res.redirect('/#signin')
+			return res.redirect('/#signin')
 		}
-		else if (req.body.password === undefined || req.body.password === '') {
+		if (req.body.password === undefined || req.body.password === '') {
 			req.flash('error', "Veuillez indiquer votre mot de passe.")
-			res.redirect('/#signin')
+			return res.redirect('/#signin')
 		}
-		else {
-			User.connect(req.body, (err, id, email) => {
-				if (err) {
-					req.flash('error', err)
-					res.redirect('/#signin')
-				} else {
-					req.sessUser('login', req.body.login)
-					req.sessUser('id', id)
-					req.sessUser('email', email)
-					req.flash('info', "vous etes maintenant connecté")
-					res.redirect('/profile/' + req.session.sessUser.login)
-				}
-			})
-		}
+		User.connect(req.body, (err, id, email) => {
+			if (err) {
+				req.flash('error', err)
+				return res.redirect('/#signin')
+			}
+				req.sessUser('login', req.body.login)
+				req.sessUser('id', id)
+				req.sessUser('email', email)
+				req.flash('info', "vous etes maintenant connecté")
+				return res.redirect('/profile/' + req.session.sessUser.login)
+		})
 	})
 
 
 	app.get('/logout', (req, res) => {
 		req.session.destroy((err) => {
 			if (err) throw err
-			res.redirect('/')
+			return res.redirect('/')
 		})
 	})
 

@@ -289,6 +289,18 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
 
 
 
+/* interests */
+
+#interestList li {
+  list-style-type: none;
+}
+
+#profileinterets-edit {
+  display: none;
+}
+
+
+
 
 
 
