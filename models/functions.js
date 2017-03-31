@@ -61,6 +61,18 @@ class Functions {
 	}
 
 
+	static addViewer(userId, viewerId) {
+
+		connection.query('DELETE FROM profile_views WHERE id_user = ? AND id_viewer = ?', [userId, viewerId], (err) => {
+			if(!err) {
+				connection.query('INSERT INTO profile_views SET id_user = ?, id_viewer = ?, viewed_at = ?', [userId, viewerId, new Date()], (err) => {
+				})
+			}
+		})
+
+	}
+
+
 }
 
 module.exports = Functions

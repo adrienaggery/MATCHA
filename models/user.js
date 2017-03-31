@@ -320,6 +320,23 @@ class User {
 	}
 
 
+	static loadViewers(userId, callback) {
+
+		connection.query("SELECT pv.id_viewer, DATE_FORMAT(pv.viewed_at, 'Le %d\/%e\/%Y à %H\H%i') AS viewed_at, u.login, u.age, p.path FROM profile_views pv INNER JOIN users u ON pv.id_viewer = u.id INNER JOIN photos p ON pv.id_viewer = p.user_id WHERE pv.id_user = ? AND p.isProfile = 1 ORDER BY viewed_at DESC", [userId], (err, result) => {
+			if (err) {
+				return callback("Impossible de charger la liste des personnes qui ont regardé votre profile.")
+			}
+			if (!result[0]) {
+				return callback("Aucune personne n'a vu votre profile.")
+			}
+			else {
+				return callback(undefined, result)
+			}
+		})
+
+	}
+
+
 }
 
 

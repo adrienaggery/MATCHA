@@ -1,0 +1,20 @@
+<div id="viewer">
+	
+	<h4>Les utilisateurs qui ont vu votre profile :</h4>
+
+ 	<% for (user of listViewers) { %>
+	<div class="viewer col-md-4">
+		<p class="text-center"><strong><%= user.login %></strong></p>
+		<img class="img-responsive" src="<%= user.path %>">
+		<p>
+			<% if (user.age) { %>
+				<%= user.age %> ans<br />
+			<% } %>
+			<%= user.viewed_at %>
+		</p>
+	</div>
+	<% } %>
+
+
+</div>
+

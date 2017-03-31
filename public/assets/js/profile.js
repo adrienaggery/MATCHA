@@ -121,7 +121,7 @@ $(document).ready(function(){
 		$.post('/loadUserInterests', {user: user}, function(interests) {
 			for(i in interests) {
 				$('#'+interests[i].name+'-tag').attr('checked',true)
-				interestList.append('<li>#' + interests[i].name + '</li>')
+				interestList.append('<li># ' + interests[i].name + '</li>')
 			}
 		})
 	}

@@ -22,10 +22,18 @@ module.exports = function(app, User, Functions) {
 			req.flash('error', "Merci de vous connecter pour accéder à cette partie du site.")
 			return res.redirect('/#signin')
 		}
-
 		var ownProfile = 0
 		if (req.session.sessUser.login === req.params.user ) {
 			var ownProfile = 1
+		}
+
+		if (ownProfile == 0) {
+			User.getId(req.params.user, (err, id) => {
+				if (!err) {
+					Functions.addViewer(id, req.session.sessUser.id)
+				}
+			})
+			var listViewers = null
 		}
 
 		User.find(req.params.user, (err, data, profilePic) => {
@@ -34,7 +42,14 @@ module.exports = function(app, User, Functions) {
 				return res.redirect('/profile/' + req.session.sessUser.login)
 			}
 			Functions.loadInterestsList((err, interestList) => {
-				return res.render('pages/profile', {user: data, ownProfile: ownProfile, profilePic: profilePic, interestList: interestList})
+				User.loadViewers(req.session.sessUser.id, (err, viewers) => {
+					if (err) {
+						var listViewers = err
+					} else {
+						var listViewers = viewers
+					}
+					return res.render('pages/profile', {user: data, ownProfile: ownProfile, profilePic: profilePic, interestList: interestList, listViewers: listViewers})
+				})
 			})
 
 		})

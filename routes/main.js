@@ -55,11 +55,11 @@ module.exports = function(app, User, Functions) {
 							req.flash('error', err)
 							return res.redirect('/')
 						}
+						User.sendConfirmationEmail(req.body.email, req.body.login, token)
 						let confirm = "Merci, votre compte a été créé ! Un email de confirmation vous a été envoyé à l'adresse : " + req.body.email + "."
 						req.flash('success', confirm)
 						return res.redirect('/')
 					})
-					User.sendConfirmationEmail(req.body.email, req.body.login, token)
 				})
 			})
 		})
