@@ -164,10 +164,10 @@ class User {
 	static getProfilePic(login, callback) {
 		connection.query('SELECT path FROM photos INNER JOIN users ON users.id = photos.user_id WHERE users.login = ? AND photos.isProfile = 1', [login], (err, result) => {
 			if (err) {
-				return callback(undefined)
+				return callback()
 			}
 			if (!result[0]) {
-				return callback(undefined, undefined, undefined)
+				return callback()
 			}
 			callback(undefined, result[0].path)
 		})
@@ -307,7 +307,7 @@ class User {
 			if (err) {
 				return callback("Impossible de mettre à jour la liste d'intérêts")
 			}
-			for (let i = 0; i < tagList.length; i++) {
+			for (let i = 0, len = tagList.length ; i < len; i++) {
 				connection.query('INSERT INTO users_tags SET user_id = ?, tag_id = ?', [userId, tagList[i]], (err) => {
 					if (err) {
 						return callback("Impossible de mettre à jour la liste d'intérêts")
