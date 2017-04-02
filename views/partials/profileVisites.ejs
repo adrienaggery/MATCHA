@@ -1,18 +1,27 @@
-<div id="viewer">
+<div class="clearfix" id="viewer">
 	
-	<h4>Les utilisateurs qui ont vu votre profile :</h4>
+	<h3>Les utilisateurs qui ont vu votre profile :</h3>
+	<hr>
 
- 	<% for (user of listViewers) { %>
-	<div class="viewer col-md-4">
-		<p class="text-center"><strong><%= user.login %></strong></p>
-		<img class="img-responsive" src="<%= user.path %>">
+	<% if (listViewers) { %>
+	 	<% for (user of listViewers) { %>
+	 		<a class="viewer" href="/profile/<%= user.login %>">
+				<div class="col-md-4">
+					<h4><%= user.login %></h4>
+					<img class="img-responsive" src="<% if (user.path) { %><%= user.path %><% } else { %>https://source.unsplash.com/random<% } %>">
+					<p>
+						<% if (user.age) { %>
+							<%= user.age %> ans<br />
+						<% } %>
+						<%= user.viewed_at %>
+					</p>
+				</div>
+			</a>
+		<% } %>
+	<% } else { %>
 		<p>
-			<% if (user.age) { %>
-				<%= user.age %> ans<br />
-			<% } %>
-			<%= user.viewed_at %>
+			Personne n'a regardé votre profile pour le moment.
 		</p>
-	</div>
 	<% } %>
 
 

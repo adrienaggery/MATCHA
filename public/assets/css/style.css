@@ -209,10 +209,6 @@ textarea { min-height: 70px; }
   min-height: 460px;
 }
 
-.tab-content {
-	padding-top: 20px;
-}
-
 .tab-content .glyphicon {
 	color: inherit;
 }
@@ -301,6 +297,22 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
 }
 
 
+/* Viewers */
+
+.viewer {
+  text-align: center;
+}
+
+.viewer img {
+  max-height: 200px;
+  width: auto;
+  margin: 0 auto 10px;
+}
+
+a:hover.viewer {
+  color: #e45da3;
+  /*color: #e04696;*/
+}
 
 
 

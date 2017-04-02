@@ -33,7 +33,6 @@ module.exports = function(app, User, Functions) {
 					Functions.addViewer(id, req.session.sessUser.id)
 				}
 			})
-			var listViewers = null
 		}
 
 		User.find(req.params.user, (err, data, profilePic) => {
@@ -43,9 +42,7 @@ module.exports = function(app, User, Functions) {
 			}
 			Functions.loadInterestsList((err, interestList) => {
 				User.loadViewers(req.session.sessUser.id, (err, viewers) => {
-					if (err) {
-						var listViewers = err
-					} else {
+					if (!err) {
 						var listViewers = viewers
 					}
 					return res.render('pages/profile', {user: data, ownProfile: ownProfile, profilePic: profilePic, interestList: interestList, listViewers: listViewers})
