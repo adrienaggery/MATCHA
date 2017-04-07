@@ -27,31 +27,63 @@ module.exports = function(app, User, Functions) {
 			var ownProfile = 1
 		}
 
-		if (ownProfile == 0) {
-			User.getId(req.params.user, (err, id) => {
-				if (!err) {
-					Functions.addViewer(id, req.session.sessUser.id)
-				}
-			})
-		}
+		var canLike = 0
+		var mutualLike = 0
 
 		User.find(req.params.user, (err, data, profilePic) => {
 			if (err) {
 				req.flash('error', err)
 				return res.redirect('/profile/' + req.session.sessUser.login)
 			}
-			Functions.loadInterestsList((err, interestList) => {
-				User.loadViewers(req.session.sessUser.id, (err, viewers) => {
+			if (ownProfile == 0) {
+				User.getId(req.params.user, (err, id) => {
 					if (!err) {
-						var listViewers = viewers
+						Functions.addViewer(id, req.session.sessUser.id)
+						User.canLike(req.session.sessUser.id, (err, nbrPhotos) => {
+							if (!err && nbrPhotos > 0) {
+								canLike = 1
+							}
+						})
 					}
-					return res.render('pages/profile', {user: data, ownProfile: ownProfile, profilePic: profilePic, interestList: interestList, listViewers: listViewers})
 				})
+			}
+			User.getId(req.params.user, (err, id) => {
+				if (!err) {
+					var isLike = 0
+					Functions.isLike(id, req.session.sessUser.id, (err, mutualLike) => {
+						if (!err) {
+							isLike = 1
+						}
+						Functions.isMutualLike(id, req.session.sessUser.id, (err, mutualLike) => {
+							if (!err) {
+								mutualLike = 1
+							}
+							Functions.loadInterestsList((err, interestList) => {
+								User.loadViewers(req.session.sessUser.id, (err, viewers) => {
+									if (!err) {
+										var listViewers = viewers
+									}
+									User.loadLikers(req.session.sessUser.id, (err, likers) => {
+										if (!err) {
+											var likers = likers
+										}
+										User.getPopularity(id, (err, pop) => {
+											var popularity = 0
+											if (!err) {
+												popularity = pop
+											}
+											return res.render('pages/profile', {user: data, currentUser:req.session.sessUser.login, ownProfile: ownProfile, profilePic: profilePic, interestList: interestList, listViewers: listViewers, canLike: canLike, likers: likers, isLike: isLike, mutualLike: mutualLike, popularity: popularity})
+										})
+									})
+								})
+							})
+						})
+					})
+				}
 			})
-
 		})
-
 	})
+
 
 	app.post('/updateUser', (req, res) => {
 		if (req.session.sessUser == undefined) {
@@ -74,6 +106,9 @@ module.exports = function(app, User, Functions) {
 
 
 	app.post('/api/photo', (req,res) => {
+		if (!req.session.sessUser) {
+			return res.end()
+		}
 		User.countPhotos(req.session.sessUser.id, (err, data) => {
 			if (err) {
 				return res.send(err)
@@ -102,6 +137,9 @@ module.exports = function(app, User, Functions) {
 
 
 	app.post('/loadPhotos', (req, res) => {
+		if (!req.session.sessUser) {
+			return res.end()
+		}
 		User.getId(req.body.user, (err, id) => {
 			User.loadPhotos(id, (data) => {
 				return res.send(data)
@@ -112,6 +150,9 @@ module.exports = function(app, User, Functions) {
 
 
 	app.post('/deletePhoto', (req, res) => {
+		if (!req.session.sessUser) {
+			return res.end()
+		}
 		User.ownPhoto(req.body.imgId, req.session.sessUser.id, (err) => {
 			if (err) {
 				return res.end()
@@ -130,6 +171,9 @@ module.exports = function(app, User, Functions) {
 
 
 	app.post('/updateProfilePhoto', (req, res) => {
+		if (!req.session.sessUser) {
+			return res.end()
+		}
 		User.ownPhoto(req.body.imgId, req.session.sessUser.id, (err) => {
 			if (err) {
 				return res.end()
@@ -144,8 +188,11 @@ module.exports = function(app, User, Functions) {
 		})
 	})
 
-	app.post('/loadUserInterests', (req, res) => {
 
+	app.post('/loadUserInterests', (req, res) => {
+		if (!req.session.sessUser) {
+			return res.end()
+		}
 		User.getId(req.body.user, (err, id) => {
 			if (err) {
 				return res.end()
@@ -162,6 +209,9 @@ module.exports = function(app, User, Functions) {
 
 
 	app.post('/updateUserInterests', (req, res) => {
+		if (!req.session.sessUser) {
+			return res.end()
+		}
 		User.updateUserInterests(req.session.sessUser.id, req.body['tagList[]'], (err, interests) => {
 			if (err) {
 				return res.send(err)
@@ -169,6 +219,39 @@ module.exports = function(app, User, Functions) {
 			return res.end()
 		})
 
+	})
+
+
+	app.post('/addLiker', (req, res) => {
+		if (!req.session.sessUser) {
+			return res.send("Vous devez etre connecté pour effectuer cette action.")
+		}
+		User.getId(req.body.user, (err, id) => {
+			if (err) {
+				return res.send("Utilisateur introuvable.")
+			}
+			Functions.addLiker(id, req.session.sessUser.id)
+			Functions.isMutualLike(id, req.session.sessUser.id, (err, mutualLike) => {
+				if (!err) {
+					return res.send('ok')
+				}
+				return res.end()
+			})
+		})
+	})
+
+
+	app.post('/removeLiker', (req, res) => {
+		if (!req.session.sessUser) {
+			return res.send("Vous devez etre connecté pour effectuer cette action.")
+		}
+		User.getId(req.body.user, (err, id) => {
+			if (err) {
+				return res.send("Utilisateur introuvable.")
+			}
+			Functions.removeLiker(id, req.session.sessUser.id)
+			return res.end()
+		})
 	})
 
 

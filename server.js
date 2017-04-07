@@ -1,8 +1,10 @@
-let express 	= require('express')
-let	app			= express()
-let bodyParser 	= require('body-parser')
-let session		= require('express-session')
-
+var express 	= require('express')
+var	app			= express()
+var bodyParser 	= require('body-parser')
+var session		= require('express-session')
+// var http 		= require('http').Server(app)
+server = app.listen(3000)
+var io			= require('socket.io')(server)
 
 
 // Moteur de template
@@ -19,14 +21,12 @@ app.use(session({
 	saveUninitialized: true,
 	cookie: { secure: false }
 }))
-// app.use(require('./middlewares/flash.js'))
+
 
 // Routes
 app.set('views', __dirname+"/views")
-require('./routes')(app)
+require('./routes')(app, io)
 
 
 
 
-
-app.listen(3000)

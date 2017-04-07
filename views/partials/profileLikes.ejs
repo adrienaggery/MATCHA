@@ -1,0 +1,27 @@
+<h3>Ils ont liké ton profile :</h3>
+<hr>
+
+<div id="likeList">
+
+	<% if (likers) { %>
+		<% for (liker of likers) { %>
+			<a class="viewer" href="/profile/<%= liker.login %>">
+				<div class="col-md-4">
+					<h4><%= liker.login %></h4>
+					<img class="img-responsive" src="<% if (liker.path) { %><%= liker.path %><% } else { %>https://source.unsplash.com/random<% } %>">
+					<p>
+						<% if (liker.age) { %>
+							<%= liker.age %> ans<br />
+						<% } %>
+						<%= liker.viewed_at %>
+					</p>
+				</div>
+			</a>
+		<% } %>
+	<% } else { %>
+		<p>
+			Personne n'a liké votre profile pour le moment.
+		</p>
+	<% } %>
+	
+</div>

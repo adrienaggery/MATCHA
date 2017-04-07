@@ -311,7 +311,94 @@ label { display: inline-block; font-weight: bold; font-size: 12px; width: auto; 
 
 a:hover.viewer {
   color: #e45da3;
-  /*color: #e04696;*/
+}
+
+
+/* FENETRE DE CHAT */
+
+#chat-window {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  width: 380px;
+  background-color: #fff;
+  z-index: 50;
+  border: solid #333;
+  color: #000;
+  border-width: 1px 1px 0;
+}
+
+#chat-window .chat-heading {
+  position: relative;
+  color: #fff;
+  background-color: #e45da3;
+  padding: 3px 10px;
+  border-bottom: 1px solid #d9187c;
+}
+
+#chat-window .chat-heading span {
+  position: absolute;
+  right: 5px;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+#chat-window .chat-body {
+  height: 350px;
+  display: block;
+}
+
+#chat-window .chat-body #messages {
+  overflow-y: scroll;
+  word-break: break-word;
+  max-height: 100%;
+  padding: 10px 10px 5px;
+}
+
+#chat-window .chat-body #messages p {
+  margin-bottom: 8px;
+  max-width: 75%;
+  padding: 6px 12px;
+  border-radius: 14px;
+  clear: both;
+}
+
+#chat-window .chat-body #messages p.me {
+  color: #fff;
+  float: right;
+  text-align: right;
+  background-color: #44bec7;
+}
+
+#chat-window .chat-body #messages p.you {
+  color: #000;
+  float: left;
+  text-align: left;
+  background-color: #f1f0f0;
+}
+
+#chat-window .chat-body #messages span {
+  font-weight: bold;
+  font-style: italic;
+  color: #333;
+}
+
+#chat input {
+  float: left;
+  padding: 4px 5px;
+  width: 75%
+}
+
+#chat input:focus {
+  outline: none;
+}
+
+#chat button {
+  padding: 5px 0;
+  float: left;
+  width: 25%;
+  border-radius: 0;
 }
 
 

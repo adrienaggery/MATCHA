@@ -13,25 +13,28 @@
 	<div class="profile-usertitle">
 		<div class="profile-usertitle-name" id="login"><%= user.login %></div>
 		<div class="profile-usertitle-job">
-			<span>Score de popularité : </span> <!-- (like / nbr de vue) x 100 -->
+			<span>Score de popularité : </span>
+			<%= popularity %> %
 		</div>
 	</div>
 	<!-- END SIDEBAR USER TITLE -->
 	<!-- SIDEBAR BUTTONS -->
 	<div class="profile-userbuttons">
-		<% if (ownProfile != 1) { %>
-			<a href="#" class="btn btn-info btn-sm" id="like">
-				<!-- si l'utilisateur like deja { -->
+		<% if (ownProfile == 0 && canLike == 1) { %>
+			<% if (isLike == 0) { %>
+				<a href="javascript:;" class="btn btn-info btn-sm button-like" id="like">
 					<i class="glyphicon glyphicon-heart-empty"></i>
 					Tu me plais !
-				<!-- } else { -->
-				<!-- 	<i class="glyphicon glyphicon-heart"></i>
-					Tu ne me plais plus ! -->
-				<!-- } -->
-			</a>
+				</a>
+			<%  } else { %>
+				<a href="javascript:;" class="btn btn-info btn-sm button-like button-like-liked" id="like">
+					<i class="glyphicon glyphicon-heart"></i>
+					Tu ne me plais plus !
+				</a>
+			<% } %>
 		<% } %>
-		<% if (ownProfile != 1 ) { %> 	<!-- ajouter condition like mutuel -->
-			<a href="#" class="btn btn-danger btn-sm" id="discution">
+		<% if (ownProfile == 0 && mutualLike == 1 ) { %>
+			<a href="javascript:;" class="btn btn-danger btn-sm" id="discution">
 				<i class="glyphicon glyphicon-pencil"></i>
 				Message
 			</a>

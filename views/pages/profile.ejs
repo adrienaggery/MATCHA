@@ -1,7 +1,5 @@
 <% include ../partials/head %>
 <% include ../partials/header %>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="/assets/js/profile.js"></script>
 
 
 <div class="container">
@@ -33,11 +31,12 @@
 				</div>
 
 				<div role="tabpanel" class="tab-pane" id="likes">
-					 <h2>Ils ont liké ton profile !</h2>
+					<% include ../partials/profileLikes %>
 				</div>
 
 				<div role="tabpanel" class="tab-pane" id="suggestions">
-					 suggestions
+					 <h3>Nos suggestions :</h3>
+					 <hr>
 				</div>
 			<% } %>
 
@@ -52,12 +51,19 @@
 			<% } %>
 		</div> <!-- END COL MD 8 -->
 	</div>
+
+	<% if (ownProfile == 0 && mutualLike == 1 ) { %>
+		<% include ../partials/chat %>
+	<% } %>
+	
 </div>
 
+
+
 <input type="hidden" id="ownProfile" value="<%= ownProfile %>">
-<script src="/assets/js/close.js"></script>
+<input type="hidden" id="currentProfile" value="<%= user.login %>">
+<input type="hidden" id="currentUser" value="<%= currentUser %>">
+
+
 
 <% include ../partials/footer %>
-
-</body>
-</html>

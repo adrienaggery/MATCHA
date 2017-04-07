@@ -1,0 +1,32 @@
+<div id="chat-window">
+	
+	<header class="chat-heading">
+		<%= user.login %>
+		<span id="close-chat">X</span>
+	</header>
+
+	<section class="chat-body">
+		<div id="messages"></div>
+	</section>
+
+	<div class="chat-discution">
+		<form action="" id="chat">
+			<input type="text" id="m" autocomplete="off" placeholder="Écrivez votre message..." />
+			<button class="btn btn-success">Envoyer</button>
+		</form>
+	</div>
+
+
+	<script>
+
+	document.getElementById('discution').onclick = function() {
+		document.getElementById('chat-window').style.display = 'block'
+	}
+		
+	document.getElementById('close-chat').onclick = function() {
+		document.getElementById('chat-window').style.display = 'none'
+	}
+
+	</script>
+
+</div>

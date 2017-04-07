@@ -64,10 +64,56 @@ class Functions {
 	static addViewer(userId, viewerId) {
 
 		connection.query('DELETE FROM profile_views WHERE id_user = ? AND id_viewer = ?', [userId, viewerId], (err) => {
-			if(!err) {
+			if (!err) {
 				connection.query('INSERT INTO profile_views SET id_user = ?, id_viewer = ?, viewed_at = ?', [userId, viewerId, new Date()], (err) => {
 				})
 			}
+		})
+
+	}
+
+
+	static isLike (userId, viewerId, callback) {
+
+		connection.query('SELECT * FROM `likes` WHERE `id_user` = ? AND `id_liker` = ?', [userId, viewerId], (err, result) => {
+			if (err) {
+				return callback(err.stack)
+			}
+			if (!result[0]) {
+				return callback('Not a like.')
+			}
+			return callback(undefined, 1)
+		})
+
+	}
+
+
+	static isMutualLike (userId, viewerId, callback) {
+
+		connection.query('SELECT * FROM `likes` WHERE (`id_user` = ? AND `id_liker` = ?) OR (`id_user` = ? AND `id_liker` = ?)', [userId, viewerId, viewerId, userId], (err, result) => {
+			if (err) {
+				return callback(err.stack)
+			}
+			if (!result[0] || !result[1]) {
+				return callback('Not a mutual like.')
+			}
+			return callback(undefined, 1)
+		})
+
+	}
+
+
+	static addLiker(userId, likerId) {
+
+		connection.query('INSERT INTO likes SET id_user = ?, id_liker = ?, liked_at = ?', [userId, likerId, new Date()], (err) => {
+		})
+
+	}
+
+
+	static removeLiker(userId, likerId) {
+
+		connection.query('DELETE FROM likes WHERE id_user = ? AND id_liker = ?', [userId, likerId], (err) => {
 		})
 
 	}

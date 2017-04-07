@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 
 	var user = $('#login').text()
@@ -107,10 +106,10 @@ $(document).ready(function(){
 		})
 
 	}
-	//end upload photos
+	// end upload photos
 
 
-	//interets
+	// interets
 
 	loadUserInterests()
 
@@ -148,6 +147,31 @@ $(document).ready(function(){
 		$('#profileinterets').show('slow')
 
 	})
+
+
+	// Like
+
+	$('#like').on('click', function(e) {
+		e.preventDefault()
+		if ($(e.currentTarget).hasClass('button-like-liked')) {
+			$.post('/removeLiker', {user}, function(err) {
+					$(e.currentTarget).html('<i class="glyphicon glyphicon-heart-empty"></i>Tu me plait !')
+					$(e.currentTarget).toggleClass('button-like-liked')
+					$('#discution').remove()
+					$('#chat-window').remove()
+			})
+		} else {
+			$.post('/addLiker', {user}, function(isMutual) {
+					$(e.currentTarget).html('<i class="glyphicon glyphicon-heart"></i>Tu ne me plait plus !')
+					$(e.currentTarget).toggleClass('button-like-liked')
+					if (isMutual === 'ok') {
+						$(e.currentTarget).parent().append('<a href="#" class="btn btn-danger btn-sm" id="discution"><i class="glyphicon glyphicon-pencil"></i>Message</a>')
+					}
+			})
+		}
+	})
+
+
 
 
 

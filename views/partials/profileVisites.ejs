@@ -4,16 +4,16 @@
 	<hr>
 
 	<% if (listViewers) { %>
-	 	<% for (user of listViewers) { %>
-	 		<a class="viewer" href="/profile/<%= user.login %>">
+		<% for (viewer of listViewers) { %>
+			<a class="viewer" href="/profile/<%= viewer.login %>">
 				<div class="col-md-4">
-					<h4><%= user.login %></h4>
-					<img class="img-responsive" src="<% if (user.path) { %><%= user.path %><% } else { %>https://source.unsplash.com/random<% } %>">
+					<h4><%= viewer.login %></h4>
+					<img class="img-responsive" src="<% if (viewer.path) { %><%= viewer.path %><% } else { %>https://source.unsplash.com/random<% } %>">
 					<p>
-						<% if (user.age) { %>
-							<%= user.age %> ans<br />
+						<% if (viewer.age) { %>
+							<%= viewer.age %> ans<br />
 						<% } %>
-						<%= user.viewed_at %>
+						<%= viewer.viewed_at %>
 					</p>
 				</div>
 			</a>
