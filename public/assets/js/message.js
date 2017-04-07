@@ -24,18 +24,21 @@
 
 	socket.on('new_msg', function(data) {
 		insertMessage(data.sender, data.msg)
-		$('#messages').scrollTop($('#messages')[0].scrollHeight);
 		
 	})
 
 
 
 	function insertMessage(login, message) {
-		$('#chat-window').show()
-		if (login === currentUser) {
-			$('#messages').append('<p class="me">' + message + '</p>')
-		} else {
-			$('#messages').append('<p class="you">' + message + '</p>')
+
+		if (document.getElementById('chat-window')) {
+			$('#chat-window').show()
+			if (login === currentUser) {
+				$('#messages').append('<p class="me">' + message + '</p>')
+			} else {
+				$('#messages').append('<p class="you">' + message + '</p>')
+			}
+			$('#messages').scrollTop($('#messages')[0].scrollHeight);
 		}
 	}
 
