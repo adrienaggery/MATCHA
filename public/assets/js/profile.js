@@ -161,12 +161,9 @@ $(document).ready(function(){
 					$('#chat-window').remove()
 			})
 		} else {
-			$.post('/addLiker', {user}, function(isMutual) {
+			$.post('/addLiker', {user}, function() {
 					$(e.currentTarget).html('<i class="glyphicon glyphicon-heart"></i>Tu ne me plait plus !')
 					$(e.currentTarget).toggleClass('button-like-liked')
-					if (isMutual === 'ok') {
-						$(e.currentTarget).parent().append('<a href="#" class="btn btn-danger btn-sm" id="discution"><i class="glyphicon glyphicon-pencil"></i>Message</a>')
-					}
 			})
 		}
 	})

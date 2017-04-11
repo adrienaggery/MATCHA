@@ -38,11 +38,9 @@
 					 <h3>Nos suggestions :</h3>
 					 <hr>
 				</div>
-			<% } %>
-
-			<% if (ownProfile != 1 ) { %>
+			<% } else { %>
 				<div role="tabpanel" class="tab-pane" id="signaler">
-					 signaler
+					<% include ../partials/profileSignaler %>
 				</div>
 
 				<div role="tabpanel" class="tab-pane" id="bloquer">

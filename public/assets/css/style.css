@@ -158,6 +158,18 @@ textarea { min-height: 70px; }
 .profile-userbuttons .btn:last-child {
   margin-right: 0px;
 }
+
+#connection-info {
+  color: #a2a2a2;
+  text-align: center;
+  margin-top: 7px;
+}
+
+#connection-info span {
+  font-weight: bold;
+  color: orangered;
+  display: block;
+}
     
 .profile-usermenu {
   margin-top: 30px;
@@ -191,6 +203,11 @@ textarea { min-height: 70px; }
 .profile-usermenu ul li a:hover {
   background-color: #fafcfd;
   color: #6b6b6b;
+}
+
+.online {
+  color: darkseagreen;
+  font-weight: bold;
 }
 
 .profile-usermenu ul li.active {
@@ -342,6 +359,13 @@ a:hover.viewer {
   right: 5px;
   padding: 0 5px;
   cursor: pointer;
+  transition: all ease-out 0.6s;
+}
+
+#chat-window .chat-heading span:hover {
+  color: #9e0655;
+  transform: rotate(180deg);
+  transform-origin: center;
 }
 
 #chat-window .chat-body {
@@ -400,6 +424,7 @@ a:hover.viewer {
   width: 25%;
   border-radius: 0;
 }
+
 
 
 

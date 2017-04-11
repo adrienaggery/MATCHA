@@ -231,12 +231,7 @@ module.exports = function(app, User, Functions) {
 				return res.send("Utilisateur introuvable.")
 			}
 			Functions.addLiker(id, req.session.sessUser.id)
-			Functions.isMutualLike(id, req.session.sessUser.id, (err, mutualLike) => {
-				if (!err) {
-					return res.send('ok')
-				}
-				return res.end()
-			})
+			return res.end()
 		})
 	})
 

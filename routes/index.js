@@ -3,6 +3,8 @@ module.exports = function(app, io) {
 
 	let User 		= require('../models/user')
 	let Functions	= require('../models/functions')
+	let Chat 		= require('../models/chat')
+
 
 
 
@@ -17,7 +19,7 @@ module.exports = function(app, io) {
 
 	require('./main')(app, User, Functions);			// page d'accueil
 	require('./profile')(app, User, Functions);			// page de profile
-	require('./sockets')(app, User, Functions, io);	// page de profile
+	require('./sockets')(app, User, Functions, Chat, io);	// page de profile
 	require('./matcha')(app, User, Functions);			// page de recherche matcha
 
 	// si mauvaise url, redirection page d'accueil

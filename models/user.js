@@ -146,7 +146,7 @@ class User {
 	// find a specific user
 	static find (login, callback) {
 
-		connection.query('SELECT * FROM users WHERE users.login = ?', [login], (err, result) => {
+		connection.query("SELECT id, name, firstName, age, email, gender, orientation, login, city, postal, DATE_FORMAT(disconnected_at, 'le %d\/%m\/%Y à %H\H%i') AS disconnected_at FROM users WHERE users.login = ?", [login], (err, result) => {
 			if (err) {
 				return callback(err.stack)
 			}
@@ -336,7 +336,7 @@ class User {
 
 	static loadViewers(userId, callback) {
 
-		connection.query("SELECT pv.id_viewer, DATE_FORMAT(pv.viewed_at, 'Le %d\/%e\/%Y à %H\H%i') AS viewed_at, u.login, u.age, p.path FROM profile_views pv INNER JOIN users u ON pv.id_viewer = u.id LEFT JOIN photos p ON pv.id_viewer = p.user_id AND p.isProfile = 1 WHERE pv.id_user = ? ORDER BY viewed_at DESC", [userId], (err, result) => {
+		connection.query("SELECT pv.id_viewer, DATE_FORMAT(pv.viewed_at, 'Le %d\/%m\/%Y à %H\H%i') AS viewed_at, u.login, u.age, p.path FROM profile_views pv INNER JOIN users u ON pv.id_viewer = u.id LEFT JOIN photos p ON pv.id_viewer = p.user_id AND p.isProfile = 1 WHERE pv.id_user = ? ORDER BY viewed_at DESC", [userId], (err, result) => {
 			if (err) {
 				return callback("Impossible de charger la liste des personnes qui ont regardé votre profile.")
 			}
@@ -353,7 +353,7 @@ class User {
 
 	static loadLikers(userId, callback) {
 
-		connection.query("SELECT l.id_liker, DATE_FORMAT(l.liked_at, 'Le %d\/%e\/%Y à %H\H%i') AS viewed_at, u.login, u.age, p.path FROM likes l INNER JOIN users u ON l.id_liker = u.id LEFT JOIN photos p ON l.id_liker = p.user_id AND p.isProfile = 1 WHERE l.id_user = ? ORDER BY viewed_at DESC", [userId], (err, result) => {
+		connection.query("SELECT l.id_liker, DATE_FORMAT(l.liked_at, 'Le %d\/%m\/%Y à %H\H%i') AS viewed_at, u.login, u.age, p.path FROM likes l INNER JOIN users u ON l.id_liker = u.id LEFT JOIN photos p ON l.id_liker = p.user_id AND p.isProfile = 1 WHERE l.id_user = ? ORDER BY viewed_at DESC", [userId], (err, result) => {
 			if (err) {
 				return callback("Impossible de charger la liste des personnes qui ont liké votre profile.")
 			}
@@ -382,6 +382,14 @@ class User {
 			}
 			var popularity = (result[0].views / result[0].likes) * 100
 			return callback(undefined, popularity)
+		})
+
+	}
+
+
+	static setDisconnection(userId) {
+
+		connection.query('UPDATE users SET disconnected_at = ? WHERE id = ?', [new Date(), userId], (err) => {
 		})
 
 	}

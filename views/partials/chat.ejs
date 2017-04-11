@@ -19,13 +19,34 @@
 
 	<script>
 
+	// togle the chat-box
 	document.getElementById('discution').onclick = function() {
 		document.getElementById('chat-window').style.display = 'block'
+		$('#messages').scrollTop($('#messages')[0].scrollHeight);
 	}
 		
 	document.getElementById('close-chat').onclick = function() {
 		document.getElementById('chat-window').style.display = 'none'
 	}
+
+
+	// change color, depends on the focus
+	var textZone = document.getElementById('m')
+	var heading = document.getElementById('chat-window').children[0]
+
+	textZone.addEventListener('focus', function() {
+		heading.style.color = '#fff'
+		heading.style.borderColor = '#d9187c'
+		heading.style.backgroundColor = '#e45da3'
+	})
+
+	textZone.addEventListener('blur', function() {
+		heading.style.backgroundColor = '#f1f0f0'
+		heading.style.color = '#4b4f56'
+		heading.style.borderColor = '#4b4f56'
+	})
+
+
 
 	</script>
 
