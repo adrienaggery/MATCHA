@@ -27,8 +27,7 @@ function checkCode() {
 		}
 	}
 	cheat = []
-	loadEaster()
-	return
+	return loadEaster()
 }
 
 
@@ -40,12 +39,11 @@ function loadEaster() {
 function loadEasterTemplate() {
 	var template
 	template = '<div class="container text-center">'
-	template += '<h1>Congratulation, you broke the game !</h1>'
+	template += '<h1>Congratulations, you broke the game !</h1>'
 	template += '<hr />'
 	template += "<p>You don't like anyone, and shit on this Matcha project !</p>"
 	template += '<img src="http://quotesnhumor.com/wp-content/uploads/2014/12/Top-25-Best-Funny-Animal-Photos-Humor.jpg" class="img-responsive center-block" />'
 	template += '</div>'
-
 
 
 	return template

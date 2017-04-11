@@ -1,6 +1,24 @@
 <h3>Signaler cet utilisateur :</h3>
 <hr>
+<div id="report-content">
+	<p>
+		Attention, vous allez signaler cet utilisateur comme étant un faux compte.<br />
+		Celui-ci sera étudié afin de vérifier l'authenticité du compte.
+	</p>
+	<button class="btn btn-lg btn-warning center-block" id="report-user">
+		Signaler !
+</div>
+</button>
 
-<p>
-	Vous allez signaler cet utilisateur comme étant un faux compte.
-</p>
+<script>
+	
+	$('#report-user').on('click', function(e) {
+	
+		var user = $('#currentProfile').val()
+		$.post('/reportUser', {user: user}, function(res) {
+			$('#report-content').html('<p>'+res+'</p>')
+		})
+		
+	})
+
+</script>

@@ -250,6 +250,17 @@ module.exports = function(app, User, Functions) {
 	})
 
 
+	app.post('/reportUser', (req, res) => {
+		if (!req.session.sessUser) {
+			return res.send("Vous devez etre connecté pour effectuer cette action.")
+		}
+		let content = "<h2>Signalement d'utilisateur</h2>"
+		content += "" + req.session.sessUser.login + " a signalé l'utilisateur '"+ req.body.user +"' comme étant un faux compte."
+		User.sendEmail('mathieu.ceccato@gmail.com', content,"Signalement d'utilisateur")
+		return res.send("Utilisateur signalé avec succès.")
+	})
+
+
 
 
 }

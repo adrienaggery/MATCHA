@@ -25,8 +25,6 @@
 		// sets status online on profile page
 		var connectionField = document.getElementById('connection-info')
 
-		// console.log(users[currentProfile])
-		// console.log(users.users[currentProfile])
 		if (connectionField && users.users.hasOwnProperty(currentProfile)) {
 			connectionField.innerHTML = '<p class="online">En ligne</p>'
 		}

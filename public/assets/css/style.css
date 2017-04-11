@@ -363,9 +363,10 @@ a:hover.viewer {
 }
 
 #chat-window .chat-heading span:hover {
-  color: #9e0655;
+  color: #000;
   transform: rotate(180deg);
   transform-origin: center;
+  font-weight: bolder;
 }
 
 #chat-window .chat-body {
@@ -423,6 +424,17 @@ a:hover.viewer {
   float: left;
   width: 25%;
   border-radius: 0;
+}
+
+
+/* SIGNALER */
+
+#signaler p {
+  text-align: center;
+}
+
+#bloquer p {
+  text-align: center;
 }
 
 
